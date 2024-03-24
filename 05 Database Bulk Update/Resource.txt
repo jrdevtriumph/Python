@@ -1,0 +1,44 @@
+
+
+To insert sql
+mysql -u root -p property < wp_fgan1.sql
+
+
+
+
+Post Table Name 
+INSERT INTO `dg5I6vda_posts` (`ID`, `post_author`, `post_date`, `post_date_gmt`, `post_content`, `post_title`, `post_excerpt`, `post_status`, `comment_status`, `ping_status`, `post_password`, `post_name`, `to_ping`, `pinged`, `post_modified`, `post_modified_gmt`, `post_content_filtered`, `post_parent`, `guid`, `menu_order`, `post_type`, `post_mime_type`, `comment_count`) VALUES
+(4828, 1, '2022-07-05 13:24:31', '2022-07-05 13:24:31', '', '186530592_1699468263584570_9142346037983865736_n', '', 'inherit', 'open', 'closed', '', '186530592_1699468263584570_9142346037983865736_n', '', '', '2022-07-05 13:24:31', '2022-07-05 13:24:31', '', 4827, 'https://dev.triumphdigital.co.th/property/wp-content/uploads/2022/07/186530592_1699468263584570_9142346037983865736_n.jpg', 0, 'attachment', 'image/jpeg', 0),
+
+Property Post Type (Table: dg5I6vda_posts)
+post_type=property
+
+
+
+
+Post Meta (Additional value Container Table Like Property Id, Property Bed)
+INSERT INTO `dg5I6vda_postmeta` (`meta_id`, `post_id`, `meta_key`, `meta_value`) VALUES (13128, 4881, '_property_property_id', 'Fragrant 71'),
+
+
+
+SELECT `ID` FROM `wp_posts` WHERE post_type = 'Property';
+SELECT * FROM `wp_postmeta` WHERE post_id = 4881;
+
+
+
+
+
+
+
+================================
+
+Hello, I need a mysql query. I have two tables one is 'wp_posts' and another one is 'wp_postmeta'. wp_posts table's 'ID' column is the foreign key of 'wp_postmeta' table's 'post_id' column.
+First of all I need to search records from 'wp_posts' table  WHERE post_type = 'Property' then we will find from the 'wp_postmeta' table's 'post_id' with the `ID` FROM `wp_posts` WHERE post_type = 'Property'. If exists the 'post_id' and meta_key = '_property_property_id' then update 'meta_value' if not exists then insert the new one.
+
+My values will be like 
+INSERT INTO `dg5I6vda_postmeta` (`post_id`, `meta_key`, `meta_value`) VALUES (4881, '_property_property_id', 'TP-0000001'),
+INSERT INTO `dg5I6vda_postmeta` (`post_id`, `meta_key`, `meta_value`) VALUES (4881, '_property_property_id', 'TP-0000002'),
+INSERT INTO `dg5I6vda_postmeta` (`post_id`, `meta_key`, `meta_value`) VALUES (4881, '_property_property_id', 'TP-0000003'),
+INSERT INTO `dg5I6vda_postmeta` (`post_id`, `meta_key`, `meta_value`) VALUES (4881, '_property_property_id', 'TP-0000004'),
+
+Give me complete php loop code.
