@@ -1,8 +1,6 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[1]:
-
 
 # Importing required libraries
 import numpy as np
@@ -25,16 +23,12 @@ print('Subjects:', subjects)
 print('Scores (raw data):\n', scores)
 
 
-# In[2]:
-
 
 # Step 2: Create a DataFrame with Pandas
 # Create a DataFrame where rows represent students and columns represent subjects
 df = pd.DataFrame(scores, index=names, columns=subjects)
 print("\nInitial DataFrame:\n", df)
 
-
-# In[3]:
 
 
 # Step 3: Calculate statistics
@@ -47,8 +41,6 @@ df['Average'] = average_scores
 print("\nDataFrame with Average Scores:\n", df)
 
 
-# In[4]:
-
 
 # Step 4: Identify top performers
 # Find the name of the student with the highest average score
@@ -56,8 +48,6 @@ print("\nDataFrame with Average Scores:\n", df)
 top_performer = df['Average'].idxmax()
 print("\nTop Performer:", top_performer)
 
-
-# In[5]:
 
 
 # Step 5: Normalize scores
@@ -69,8 +59,6 @@ normalized_scores = (scores - scores.min()) / (scores.max() - scores.min())
 df_normalized = pd.DataFrame(normalized_scores, index=names, columns=subjects)
 print("\nNormalized DataFrame (scores scaled to 0-1):\n", df_normalized)
 
-
-# In[6]:
 
 
 # Step 6: Save processed data to a CSV file
@@ -84,22 +72,16 @@ df_transposed = pd.DataFrame(scores.T, index=subjects, columns=names)
 print("\nDataFrame with Subjects as Index:\n", df_transposed)
 
 
-# In[7]:
-
 
 # Accessing specific data in the transposed DataFrame
 # Example 1: Get all scores for Bob (a single column from the transposed DataFrame)
 print("\nScores for Bob:\n", df.loc['Bob'])
 
 
-# In[8]:
-
 
 # Example 2: Get all students' scores in Math (a single row from the transposed DataFrame)
 print("\nScores in Math:\n", df['Math'])
 
-
-# In[9]:
 
 
 # Adding new statistics: Average score per subject
@@ -108,8 +90,6 @@ df_transposed['Subject Average'] = df_transposed.mean(axis=1)
 print("\nDataFrame with Subject Averages:\n", df_transposed)
 
 
-# In[10]:
-
 
 # Advanced Example: Conditional Filtering, Grouping, and Custom Functions
 # Advanced 2.1: Conditional filtering
@@ -117,8 +97,6 @@ print("\nDataFrame with Subject Averages:\n", df_transposed)
 high_scorers_science = df[df['Science'] > 80]
 print("\nStudents scoring above 80 in Science:\n", high_scorers_science)
 
-
-# In[11]:
 
 
 # Advanced 2.2: Adding a performance
@@ -136,8 +114,6 @@ df['Performance'] = df['Average'].apply(performance)
 print("\nDataFrame with Performance Categories:\n", df)
 
 
-# In[12]:
-
 
 # Advanced 2.3: Grouping and aggregation
 # Group by performance category and calculate statistics for each group
@@ -149,8 +125,6 @@ performance_summary = df.groupby('Performance').agg(
 )
 print("\nPerformance Summary by Category:\n", performance_summary)
 
-
-# In[13]:
 
 
 # Advanced 2.4: Identify the student with the highest score in each subject
