@@ -1,0 +1,4 @@
+
+To Convert NumPyAndPanda_01.ipynb file to NumPyAndPanda_01.py
+Use this command
+jupyter nbconvert --to script NumPyAndPanda_01.ipynb
