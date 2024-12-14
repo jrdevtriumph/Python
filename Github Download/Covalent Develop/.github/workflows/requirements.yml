@@ -1,0 +1,79 @@
+# Copyright 2021 Agnostiq Inc.
+#
+# This file is part of Covalent.
+#
+# Licensed under the Apache License 2.0 (the "License"). A copy of the
+# License may be obtained with this software package or at
+#
+#     https://www.apache.org/licenses/LICENSE-2.0
+#
+# Use of this file is prohibited except in compliance with the License.
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+name: requirements
+
+on: [pull_request]
+
+jobs:
+  requirements:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out head
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+
+      - name: Install covalent
+        run: python -m pip install .
+
+      - name: Install packages
+        run: python -m pip install pip-check-reqs
+
+      - name: Check extra core requirements
+        run: pip-extra-reqs -r python-multipart covalent covalent_dispatcher covalent_ui --ignore-requirement=qiskit --ignore-requirement=qiskit-ibm-provider --ignore-requirement=amazon-braket-pennylane-plugin
+
+      - name: Check missing SDK requirements
+        run: >
+          pip-missing-reqs
+          --ignore-module=covalent_ui.*
+          --ignore-module=covalent.*
+          --ignore-module=urllib3.*
+          --ignore-module=pkg_resources
+          --ignore-module=covalent/_dispatcher_plugins
+          --ignore-module=covalent/_shared_files
+          --ignore-file=covalent/quantum/**
+          --ignore-file=covalent/_workflow/q*
+          --ignore-file=covalent/_shared_files/q*
+          --ignore-file=covalent/_results_manager/q*
+          --ignore-file=covalent/_shared_files/pickling.py
+          --ignore-file=covalent/executor/**
+          --ignore-file=covalent/triggers/**
+          --ignore-file=covalent/cloud_resource_manager/**
+          --ignore-file=covalent/_programmatic/**
+          covalent
+
+      - name: Check missing dispatcher requirements
+        run: >
+          pip-missing-reqs
+          --ignore-module=covalent_ui.*
+          --ignore-module=covalent.*
+          --ignore-module=covalent_dispatcher.*
+          --ignore-module=distributed.*
+          covalent_dispatcher
+
+      - name: Check missing UI backend requirements
+        run: >
+          pip-missing-reqs
+          --ignore-module=covalent_ui.*
+          --ignore-module=covalent.*
+          --ignore-module=covalent_dispatcher.*
+          covalent_ui

@@ -1,0 +1,5326 @@
+# Changelog
+
+All notable changes to this project will be documented in this file.
+
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## [UNRELEASED]
+
+### Changed
+
+- Added support for Python 3.11
+- Removed official support for Python 3.8
+
+## [0.235.1-rc.0] - 2024-06-10
+
+### Authors
+
+- Santosh kumar <29346072+santoshkumarradha@users.noreply.github.com>
+- Co-authored-by: pre-commit-ci[bot] <66853113+pre-commit-ci[bot]@users.noreply.github.com>
+- Co-authored-by: kessler-frost <sankalp@agnostiq.ai>
+
+
+### Fixed
+
+- Ignoring all errors when importing qelectrons instead of only `ImportError`
+
+## [0.235.0-rc.0] - 2024-05-29
+
+### Authors
+
+- Ara Ghukasyan <38226926+araghukas@users.noreply.github.com>
+- Casey Jao <casey@agnostiq.ai>
+
+
+### Changed
+
+- Updated Slurm plugin docs to note possible SSH limitation
+- Updated Slurm plugin docs to remove `sshproxy` section
+- API base endpoint is now configurable from an environment variable
+- Removed unused lattice attributes to reduce asset uploads
+
+### Fixed
+
+- Improved handling of Covalent version mismatches between client and
+  executor environments
+
+### Removed
+
+- Removed obsolete `migrate-pickled-result-object` command
+
+### Operations
+
+- Allow installing a specific commit sha to ease testing
+
+## [0.234.1-rc.0] - 2024-05-10
+
+### Authors
+
+- Andrew S. Rosen <asrosen93@gmail.com>
+- Sankalp Sanand <sankalp@agnostiq.ai>
+- Co-authored-by: Alejandro Esquivel <ae@alejandro.ltd>
+- Casey Jao <casey@agnostiq.ai>
+- Co-authored-by: Santosh kumar <29346072+santoshkumarradha@users.noreply.github.com>
+
+
+### Fixed
+
+- Sublattice electron function strings are now parsed correctly
+- The keys of dictionary inputs to electrons no longer need be strings.
+- Fixed inaccuracies in task packing exposed by no longer uploading null attributes upon dispatch.
+
+### Operations
+
+- Fixed nightly workflow's calling of other workflows.
+- Fixed input values for other workflows in `nightly-tests` workflow.
+
+### Operations
+
+- Removing author email from changelog action
+- Fixed nightly worfkflow's calling of other workflows.
+
+## [0.234.0-rc.0] - 2024-02-07
+
+### Authors
+
+- Andrew S. Rosen (@Andrew_S_Rosen)
+- Casey Jao <casey@agnostiq.ai>
+- Sankalp Sanand <sankalp@agnostiq.ai>
+- Co-authored-by: pre-commit-ci[bot] <66853113+pre-commit-ci[bot]@users.noreply.github.com>
+- ArunPsiog <106462226+ArunPsiog@users.noreply.github.com>
+- Co-authored-by: Ara Ghukasyan <ara@agnostiq.ai>
+- FilipBolt <filipbolt@gmail.com>
+- sriranjanivenkatesan <116076079+sriranjanivenkatesan@users.noreply.github.com>
+- Co-authored-by: batchumanish <manish.batchu@psiog.com>
+- Co-authored-by: Prasy12 <prasanna.venkatesh@psiog.com>
+- Co-authored-by: batchumanish <“manish.batchu@psiog.com”>
+- Co-authored-by: batchumanish <126003896+batchumanish@users.noreply.github.com>
+- Co-authored-by: Santosh kumar <29346072+santoshkumarradha@users.noreply.github.com>
+- Ara Ghukasyan <38226926+araghukas@users.noreply.github.com>
+
+### Operations
+
+- Added qelectron tests to the `tests` workflow
+- Split the `nightly` workflow into 4 manually triggerable workflows, `nightly-tests`, `man_0_assign_version`, `man_1_push_to_master`, and `man_2_create_prerelease` to be run in this order.
+- Now only the `nightly-tests` workflow will be run on a daily basis, and the other 3 workflows will be run manually.
+- Removed `conda` releases from `release.yml`.
+- When pushing to `master`, now the version numbers of `develop` and `master` will be compared in `man_1_push_to_master`.
+- Upgraded checkout action to v4 in `release.yml`.
+- Fixing the if condition for the manual workflows.
+- Added pre-release creation as part of `nightly-tests` workflow.
+
+### Added
+
+- Added CRM method to handle Python to TF value conversion (e.g. None->null, True->true, False->false).
+- Added `pennylane` as a requirement in tests due to the tutorials using it
+
+### Changed
+
+- Updated RTD notebooks to fix their behavior
+- Changed the error being shown when drawing the transport graph of a lattice to a debug message instead
+- Revamped README
+- Reorganized `qelectron` tests
+- Made qelectron an opt-in feature using `covalent[quantum]` extra
+
+### Removed
+
+- Removed unused file transfer how to guides
+- Removed `pennylane` as a requirement from notebooks' requirements.txt as it comes with `covalent`
+- Removed `validate_args` and `validate_region` method from `deploy_group` CLI as they were specific to AWS
+
+### Docs
+
+- Added voice cloning tutorial
+
+### Fixed
+
+- Fixed the scenario where any deploy commands would fail if the user had a non deploy compatible plugin installed
+- Fixed the SQLAlchemy warning that used to show up at every fresh server start
+- Fixed deploy commands' default value of plugins not being propagated to the tfvars file
+
+## [0.233.0-rc.0] - 2024-01-07
+
+### Authors
+
+- Andrew S. Rosen (@Andrew_S_Rosen)
+- Casey Jao <casey@agnostiq.ai>
+- Sankalp Sanand <sankalp@agnostiq.ai>
+- Co-authored-by: pre-commit-ci[bot] <66853113+pre-commit-ci[bot]@users.noreply.github.com>
+- ArunPsiog <106462226+ArunPsiog@users.noreply.github.com>
+- Co-authored-by: Ara Ghukasyan <ara@agnostiq.ai>
+
+### Added
+
+- Added feature to use custom python files as modules to be used in the electron function
+
+### Changed
+
+- SDK no longer uploads empty assets when submitting a dispatch.
+- Results Manager avoids downloading assets with size 0.
+- Local and Dask executor plugins now return accurate sizes of task
+  artifacts.
+- Size (number of bytes) is now a required attribute whenever updating
+  asset metadata. Although the exact numerical value is not yet
+  important, whether the size is reported to be zero or positive does
+  have consequences.
+- Pack deps, call_before, and call_after assets into one file.
+- Changed handling of tuples and sets when building the transport graph - they will be converted to electron lists as well for now
+- `qelectron_db`, `qelectron_data_exists`, `python_version`, and `covalent_version`
+  are now optional in the pydantic model definitions.
+
+### Fixed
+
+- Reduced number of assets to upload when submitting a dispatch.
+- Handled RecursionError on get results for a long running workflow.
+- Fixed functional tests.
+
+### Operations
+
+- Allow `cloudpickle` >= 3.0.0
+- Remove `boto3` dependency from `tests/requirements.txt`
+
+## [0.232.0-rc.0] - 2023-12-01
+
+### Authors
+
+- Ara Ghukasyan <38226926+araghukas@users.noreply.github.com>
+- Co-authored-by: pre-commit-ci[bot] <66853113+pre-commit-ci[bot]@users.noreply.github.com>
+
+### Operations
+
+- Ignore custom executor plugin in how-to's when running `test_deploy_status` CLI test.
+
+### Changed
+
+- Terraform output to use scrolling buffer.
+- Terraform output handling to show errors.
+- Bumped up babel/traverse version to 7.23.2
+
+## [0.231.0-rc.0] - 2023-11-28
+
+### Authors
+
+- Ara Ghukasyan <38226926+araghukas@users.noreply.github.com>
+- Co-authored-by: pre-commit-ci[bot] <66853113+pre-commit-ci[bot]@users.noreply.github.com>
+
+### Added
+
+- check for `/bin/bash` AND `/bin/sh` (in that order) to execute bash leptons
+
+### Changed
+
+- Changed the axios version on the webapp side.
+
+### Operations
+
+- Change the strict version pin on `pennylane` from `==0.33.1` to `>=0.31.1,<0.33.0`
+
+## [0.230.0-rc.0] - 2023-11-24
+
+### Authors
+
+- Andrew S. Rosen (@Andrew_S_Rosen)
+- Co-authored-by: Will Cunningham <wjcunningham7@users.noreply.github.com>
+- Co-authored-by: Sankalp Sanand <sankalp@agnostiq.ai>
+- Co-authored-by: pre-commit-ci[bot] <66853113+pre-commit-ci[bot]@users.noreply.github.com>
+- Kevin Taylor <tkdtaylor@gmail.com>
+- FilipBolt <filipbolt@gmail.com>
+- Co-authored-by: dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.com>
+- Co-authored-by: Will Cunningham <wjcunningham7@gmail.com>
+- Co-authored-by: Prasy12 <prasanna.venkatesh@psiog.com>
+- Co-authored-by: Ara Ghukasyan <38226926+araghukas@users.noreply.github.com>
+- Aviral Katiyar <123640350+maskboyAvi@users.noreply.github.com>
+- Co-authored-by: ArunPsiog <arun.mukesh@psiog.com>
+- Casey Jao <casey@agnostiq.ai>
+- Arnav Kohli <95236897+THEGAMECHANGER416@users.noreply.github.com>
+- Kirill Pushkarev <71515921+kirill-push@users.noreply.github.com>
+- Aditya Raj Kashyap <95625520+AdityaRaj23@users.noreply.github.com>
+- ArunPsiog <106462226+ArunPsiog@users.noreply.github.com>
+- mpvgithub <107603631+mpvgithub@users.noreply.github.com>
+- Aravind <100823292+Aravind-psiog@users.noreply.github.com>
+- Faiyaz Hasan <faiyaz@agnostiq.ai>
+- Co-authored-by: Venkat Bala <balavk89@gmail.com>
+- Co-authored-by: kessler-frost <ssanand@hawk.iit.edu>
+- Co-authored-by: Aravind-psiog <aravind.prabaharan@psiog.com>
+- Co-authored-by: Manjunath PV <manjunath.poilath@psiog.com>
+- Co-authored-by: Ara Ghukasyan <ara@agnostiq.ai>
+- Co-authored-by: Alejandro Esquivel <ae@alejandro.ltd>
+
+### Added
+
+- Programmatic equivalents of CLI commands `covalent start` and `covalent stop`
+
+### Changed
+
+- Changed the azurebatch.rst banner from default covalent jpg to azure batch's svg file
+
+### Fixed
+
+- Lattice-default metadata attributes are now applied correctly
+- Sublattices are built using `workflow_executor`
+- Added covalent version attribute to Remote Executors
+- Removed unassigned variable names
+- Contributing guidelines steps for installing for the first time
+- Updated gitignore to ignore yarn files and folders for latest version of yarn
+- Fixed the bug that caused ValueError error when using KEYWORD_ONLY parameter in electron func
+- Changed code at line 218 in covalent/\_shared_files/utils.py
+- Fixed usage of deprecated pydantic validation methods
+- Fixed qelectron_db retrieval in result object
+- Fixed editability of Qelectron on settings page - UI changes
+- Certain pydantic v2 related updates
+- Fixed lattice's metadata propagation to electron's metadata in case no metadata was provided to the electron
+
+### Operations
+
+- Updated `black` , `prettier`, `pycln` package versions in pre-commit config
+- Changed `actions/checkout@v3` to `actions/checkout@v4` in CI
+- Dependabot update to npm in changelog action
+- Update tough-cookie to 4.1.3 version
+- Added rich support to cli for better printing statements.
+- Changed semver from 5.7.1 to 5.7.2 in package.json
+- Updated word-wrap to 1.2.4 version
+- Updated the nightly workflow's schedule
+- Temporarily making the nightly workflow more frequent to test the fix for the failing tests
+- Fixed failing tests
+
+### Changed
+
+- [Significant Changes] Improving memory management part 1/3
+- Removed strict version pins on `lmdbm`, `mpire`, `orjson`, and `pennylane`
+- Changed license to Apache
+- Improved error handling in generate_docs.py
+- [Significant Changes] Migrated core server-side code to new data access layer.
+- Changed the way UI was accessing the qelectron database to access it directly from the mdb file in object store
+- Update version of browserverify-sign
+- Limiting cloudpickle version to less than 3.0 for now
+
+### Added
+
+- Documentation and test cases for database triggers.
+- Added the `__pow__` method to the `Electron` class
+- New Runner and executor API to bypass server-side memory when running tasks.
+- Added qelectron_db as an asset to be transferred from executor's machine to covalent server
+- New methods to qelectron_utils, replacing the old ones
+- Covalent deploy CLI tool added - allows provisioning infras directly from covalent
+
+### Docs
+
+- Added federated learning showcase code
+- Updated tutorial for redispatching workflows with Streamlit
+
+### Tests
+
+- Temporarily skipping the sqlite and database trigger functional tests
+- Updated tests to accommodate the new qelectron fixes
+- Added new tests for the Database class and qelectron_utils
+- Covalent deploy CLI tool tests.
+
+### Removed
+
+- Removed no longer needed methods in qelectron_utils
+- Removed `dispatch-id` from generate_node_result method
+
+## [0.229.0-rc.0] - 2023-09-22
+
+### Authors
+
+- Andrew S. Rosen (@Andrew_S_Rosen)
+- Alejandro Esquivel <ae@alejandro.ltd>
+- Co-authored-by: pre-commit-ci[bot] <66853113+pre-commit-ci[bot]@users.noreply.github.com>
+- Co-authored-by: mpvgithub <107603631+mpvgithub@users.noreply.github.com>
+- Co-authored-by: Manjunath PV <manjunath.poilath@psiog.com>
+- Co-authored-by: Ara Ghukasyan <ara@agnostiq.ai>
+- Co-authored-by: Sankalp Sanand <sankalp@agnostiq.ai>
+- Co-authored-by: jackbaker1001 <jsbaker1001@gmail.com>
+- Co-authored-by: Santosh kumar <29346072+santoshkumarradha@users.noreply.github.com>
+- Co-authored-by: Ara Ghukasyan <38226926+araghukas@users.noreply.github.com>
+- Co-authored-by: Will Cunningham <will@agnostiq.ai>
+- Co-authored-by: sriranjani venkatesan <sriranjani.venkatesan@psiog.com>
+- Co-authored-by: ArunPsiog <arun.mukesh@psiog.com>
+- Co-authored-by: Prasy12 <prasanna.venkatesh@psiog.com>
+- Co-authored-by: Prasanna Venkatesh <54540812+Prasy12@users.noreply.github.com>
+- FilipBolt <filipbolt@gmail.com>
+
+### Fixed
+
+- Formatted executor block under Qelectron job details to handle any class-type values
+- Fixed test-cases to handle latest pydantic version changes
+- Rsync command fixed to recursively copy files when using SSH
+- Removed accidentally added migrations build files
+- Updated migration script to add a default value for `qelectron_data_exists` in the `electrons` table since it cannot be nullable
+- Reduced server memory consumption during workflow processing
+
+### Changed
+
+- Raised the minimum version of Pydantic from 1.10.1 to 2.1.1 in `requirements.txt`
+- Electron DAL to use Covalent server's data instead of QServer's data.
+- Renamed QCluster's `selector_serialized` attribute so it gets propagated to the qserver.
+- Removed `orm_mode = True` in `covalent_ui/api/v1/models/dispatch_model.py` as it is deprecated in Pydantic 2
+
+### Added
+
+- Added a `py.typed` file to support type-checking
+- Corrected support from distributed Hamiltonian expval calculations
+- Exposed qelectron db in sdk result object
+- UI changes added for qelectrons and fix for related config file corruption
+- UI fix regarding Qelectron not showing up
+- Performance optimisation of UI for large Qelectrons
+
+## Tests
+
+- Changed the method for startup and shutdown events for pytest to work with fastapi version 0.93.0
+- Fixed test cases to adapt changes to SQLAlchemy version 1.4.49
+- Add tests for GUI frontend and backend.
+- Skipped `tests/covalent_ui_backend_tests/end_points/summary_test.py::test_overview` until it gets fixed.
+
+### Docs
+
+- Fix autodoc for SSH, Slurm, AWS Braket, AWS Lambda, AWS EC2, AWS Batch, Google Batch
+- Updated documentation links in README
+- Added tutorial for redispatching workflows with Streamlit
+
+## [0.228.0-rc.0] - 2023-08-31
+
+### Authors
+
+- Andrew S. Rosen (@Andrew_S_Rosen)
+- Co-authored-by: Sankalp Sanand <sankalp@agnostiq.ai>
+- Will Cunningham <wjcunningham7@users.noreply.github.com>
+- Co-authored-by: pre-commit-ci[bot] <66853113+pre-commit-ci[bot]@users.noreply.github.com>
+- Co-authored-by: Casey Jao <casey@agnostiq.ai>
+- WingCode <smallstar1234@gmail.com>
+- Nick Tyler <nicholas.s.tyler.4@gmail.com>
+- Co-authored-by: Alejandro Esquivel <ae@alejandro.ltd>
+- Aravind <100823292+Aravind-psiog@users.noreply.github.com>
+- Co-authored-by: Manjunath PV <manjunath.poilath@psiog.com>
+- Co-authored-by: ArunPsiog <arun.mukesh@psiog.com>
+- Co-authored-by: RaviPsiog <raviteja.gurram@psiog.com>
+- Co-authored-by: Prasy12 <prasanna.venkatesh@psiog.com>
+- Co-authored-by: mpvgithub <107603631+mpvgithub@users.noreply.github.com>
+- Co-authored-by: Will Cunningham <wjcunningham7@gmail.com>
+- dwelsch-esi <116022979+dwelsch-esi@users.noreply.github.com>
+- Co-authored-by: dwelsch-memverge <david.welsch@memverge.com>
+- Co-authored-by: kessler-frost <ssanand@hawk.iit.edu>
+- Faiyaz Hasan <faiyaz@agnostiq.ai>
+- Santosh kumar <29346072+santoshkumarradha@users.noreply.github.com>
+
+### Fixed
+
+- Fixed dispatcher address not showing when covalent server starts.
+- Fixed the failing tests in the `nightly` workflow.
+
+### Operations
+
+- Respecting node version as specified in `.nvmrc` file for tests workflow
+- Bumped versions in pre-commit config
+- Added prettier for markdown files.
+- Reduce the number of pinned version numbers in the `setup.py`, `requirements.txt`, and `requirements-client.txt`
+- Updated the `wci.yml` file with new features
+- Bumped pre-commit versions
+- Temporarily running nightly hourly to test whether the fix worked
+- Reverted to daily frequency for nightly
+
+### Added
+
+- File transfer strategy for GCP storage
+- Add CLI status for zombie, stopped process.
+- Fix for double locking file in configurations.
+- Introduced new data access layer
+- Introduced Shutil file transfer strategy for local file transfers
+
+### Docs
+
+- Added documentation for Azure Blob Storage file transfers
+- Added documentation for Google Cloud Storage file transfers
+- Enhanced the quickstart with a set of commonly used features
+- Removed duplicate "stop server" warning in the First Experimemnt page
+- Fixed typo in quickstart
+- Fix autodoc for SSH, Slurm, AWS Braket, AWS Lambda, AWS EC2, AWS Batch, Google Batch
+- Updated documentation links in README
+- Updating and reorganizing RTD API documentation
+- Adding example links in API documentation
+
+### Changed
+
+- Removed the upper limit from `dask` and `distributed` packages' versions until we find a version which is incompatible with Covalent.
+- When the server is stopped, any workflows in a non-terminal state are first cancelled
+- Pinned sqlalchemy version with upper limit <2.0.0.
+- Added rich support to cli for better printing statements.
+- Performed minor modifications and rearrangementsto fix the broken tests in the `nightly` workflow.
+
+### Tests
+
+- Skipping functional tests for azure blob storage and gcp storage how to guides since they require credentials to run.
+- Added testcases for GUI backend.
+- Changed the method for startup and shutdown events for pytest to work with fastapi version 0.93.0
+- Fixed test cases to adapt changes to SQLAlchemy version 1.4.49
+- Ignored remote file transfer how-to functional tests.
+- Skipping a UI backend test for now
+- Fixed `test_decorated_function` test case in functional tests
+
+### Fixed
+
+- Using `filelock` package now for platform independent file locking of config file. This should fix the failing tests as well as improve compatibility with Windows.
+- When stopping the server, we send the proper `SIGINT` signal to uvicorn instead of `SIGKILL` which allows the second part of the FastAPI `lifespan` to execute properly.
+- Fixed the outstanding incompatibities between front-end data layer and a postgres database
+- Reverted file-lock changes
+- Fixed dispatches list UI api caused by pydantic config.
+- Fixed graph API.
+- Fixed UI backend unit test case.
+- Executor and workflow executor data dictionaries are passed to sublattices
+
+## [0.227.0-rc.0] - 2023-06-13
+
+### Authors
+
+- Andrew S. Rosen (@Andrew_S_Rosen)
+- Co-authored-by: Sankalp Sanand <sankalp@agnostiq.ai>
+- Will Cunningham <wjcunningham7@users.noreply.github.com>
+- Co-authored-by: pre-commit-ci[bot] <66853113+pre-commit-ci[bot]@users.noreply.github.com>
+- Co-authored-by: Casey Jao <casey@agnostiq.ai>
+
+### Added
+
+- File transfer strategy for Azure blob storage
+
+### Fixed
+
+- Read in `README.md` with `encoding="utf-8"` in `setup.py`
+
+### Docs
+
+- Fix `Lattice` docstring in RTD.
+- Added a missing `,` to the Slurm docs.
+
+### Operations
+
+- Update the PR template.
+
+## [0.226.0-rc.0] - 2023-06-09
+
+### Authors
+
+- Sankalp Sanand <sankalp@agnostiq.ai>
+
+### Changed
+
+- Reverting nightly frequency back to midnight basis
+
+## [0.225.0-rc.0] - 2023-06-08
+
+### Authors
+
+- Sankalp Sanand <sankalp@agnostiq.ai>
+- Madhur Tandon <20173739+madhur-tandon@users.noreply.github.com>
+- Prasanna Venkatesh <54540812+Prasy12@users.noreply.github.com>
+- Co-authored-by: kamalesh.suresh <kamalesh.suresh@psiog.com>
+- Co-authored-by: pre-commit-ci[bot] <66853113+pre-commit-ci[bot]@users.noreply.github.com>
+- Co-authored-by: Andrew S. Rosen (@Andrew_S_Rosen)
+- Faiyaz Hasan <faiyaz@agnostiq.ai>
+- Co-authored-by: sriranjani venkatesan <sriranjani.venkatesan@psiog.com>
+- Will Cunningham <wjcunningham7@users.noreply.github.com>
+- Co-authored-by: kessler-frost <ssanand@hawk.iit.edu>
+- Co-authored-by: santoshkumarradha <santosh@agnostiq.ai>
+- Co-authored-by: Casey Jao <casey@agnostiq.ai>
+
+### Changed
+
+- Temporarily changing the nightly frequency to every hour
+
+## [0.224.0-rc.0] - 2023-06-04
+
+### Authors
+
+- Sankalp Sanand <sankalp@agnostiq.ai>
+- Madhur Tandon <20173739+madhur-tandon@users.noreply.github.com>
+- Prasanna Venkatesh <54540812+Prasy12@users.noreply.github.com>
+- Co-authored-by: kamalesh.suresh <kamalesh.suresh@psiog.com>
+- Co-authored-by: pre-commit-ci[bot] <66853113+pre-commit-ci[bot]@users.noreply.github.com>
+- Co-authored-by: Andrew S. Rosen (@Andrew_S_Rosen)
+- Faiyaz Hasan <faiyaz@agnostiq.ai>
+- Co-authored-by: sriranjani venkatesan <sriranjani.venkatesan@psiog.com>
+- Will Cunningham <wjcunningham7@users.noreply.github.com>
+- Co-authored-by: kessler-frost <ssanand@hawk.iit.edu>
+- Co-authored-by: santoshkumarradha <santosh@agnostiq.ai>
+- Co-authored-by: Casey Jao <casey@agnostiq.ai>
+
+### Changed
+
+- Error messages are propagated to stdout when the server is not started. These changes are applied to `dispatch`, `redispatch`, and `get_result`.
+
+### Docs
+
+- Fix typo in GCP Batch executor RTD.
+- Add steps for setting up GUI for local development in contribution guidelines.
+
+### Fixed
+
+- Resolving correct python executable
+- Error handling for random URLs/random dispatchId entered on the GUI
+- Fixed support for dynamically assigning `executor` to `Electron` class
+- Fixed nightly by activating environment before running tests in `tests.yml`
+
+### Added
+
+- `executor` property to `Electron` class, allowing updation of executor after electron function definition
+- Added ability to hide post-processing electrons on the UI.
+- Added prettify of names for the graph screen on the UI.
+- Ability to specify a `workdir` for `local` and `dask` executors along with `create_unique_workdir` option for each electron / node.
+- Heartbeat file is created and updated when the server is running
+- Added `SQLiteTrigger` class to the `triggers` module.
+
+### Removed
+
+- Removed unused module `covalent._data_store`
+- Stress test files of cpu and sublattice stress tests removed from functional tests suite.
+
+### Operations
+
+- Nightly frequency set to midnight EST
+
+## [0.223.1-rc.0] - 2023-05-17
+
+### Authors
+
+- Janosh Riebesell <janosh.riebesell@gmail.com>
+- Co-authored-by: Alejandro Esquivel <ae@alejandro.ltd>
+
+### Fixed
+
+- only pin `aiohttp` downwards to fix install on Python 3.11 [#1654](https://github.com/AgnostiqHQ/covalent/pulls/1654)
+
+## [0.223.0-rc.0] - 2023-05-17
+
+### Authors
+
+- Alejandro Esquivel <ae@alejandro.ltd>
+- Madhur Tandon <20173739+madhur-tandon@users.noreply.github.com>
+- Sankalp Sanand <sankalp@agnostiq.ai>
+- Co-authored-by: kessler-frost <ssanand@hawk.iit.edu>
+- Faiyaz Hasan <faiyaz@agnostiq.ai>
+- Andrew S. Rosen (@Andrew_S_Rosen)
+- Co-authored-by: pre-commit-ci[bot] <66853113+pre-commit-ci[bot]@users.noreply.github.com>
+- Co-authored-by: Santosh kumar <29346072+santoshkumarradha@users.noreply.github.com>
+
+### Added
+
+- Added the `CloudResourceManager` class
+- A new tutorial for a dynamic quantum chemistry workflow
+
+### Tests
+
+- Added tests for the `CloudResourceManager` class
+
+### Docs
+
+- Fix docstring for set_config
+- Redispatch feature page in Read the Docs.
+- Clarify installation instructions for SLURM plugin in Read the Docs (x2).
+- Fix waiting order of electrons in docs inside snippet for adding a dependency when inputs and outputs are independent.
+- Expose GCP Batch executor RTD.
+- Add GCP Batch executor image in RTD.
+
+### Fixed
+
+- DB path creation now takes place at import time so that the CLI commands don't fail
+- Raise error on dispatching a non-lattice
+- Helpful message when trying to dispatch a workflow when covalent server is not available
+- Open UI preview of transport graph when `lattice.draw()` is invoked and print URL of the same
+- Defer creation of server specific config entries until covalent is started
+- Functional tests on CI
+- Move dask worker space to covalent cache instead of `site-packages`
+
+### Docs
+
+- Updated Feature documentation for Triggers with an example and minor corrections
+
+### Removed
+
+- Duplicate mocks for `UI_SRVDIR`
+- Duplicate `_get_cancel_requested` method from `covalent_dispatcher/_core/runner.py`
+
+### Tests
+
+- Re-enable `test_run_workflow_does_not_deserialize`
+
+### Authors
+
+- Madhur Tandon <madhurtandon23@gmail.com>
+
+### Operations
+
+- Removed "already released" check from stable changelog action
+
+## [0.222.0-rc.0] - 2023-04-27
+
+### Authors
+
+- Faiyaz Hasan <faiyaz@agnostiq.ai>
+- Co-authored-by: kessler-frost <ssanand@hawk.iit.edu>
+- Co-authored-by: Alejandro Esquivel <ae@alejandro.ltd>
+
+### Changed
+
+- Implementation of `TransportableObject` property method to be backwards compatible with version 0.209.1.
+
+### Tests
+
+- Updated QA stress test execution time baseline.
+
+## [0.221.1-rc.0] - 2023-04-26
+
+### Authors
+
+- Madhur Tandon <20173739+madhur-tandon@users.noreply.github.com>
+- Co-authored-by: Alejandro Esquivel <ae@alejandro.ltd>
+- Faiyaz Hasan <faiyaz@agnostiq.ai>
+- Rob de Wit <RCdeWit@users.noreply.github.com>
+- Co-authored-by: pre-commit-ci[bot] <66853113+pre-commit-ci[bot]@users.noreply.github.com>
+- Sankalp Sanand <sankalp@agnostiq.ai>
+- Co-authored-by: kessler-frost <ssanand@hawk.iit.edu>
+
+### Tests
+
+- Move QA scripts from QA repo to Covalent functional tests.
+
+### Docs
+
+- Update requirements file for the tutorials: `1_QuantumMachineLearning/pennylane_kernel/source.ipynb` and `machine_learning/dnn_comparison.ipynb`.
+- Add macOS 13 (Ventura) to [compatibility list](doc/source/getting_started/compatibility.rst).
+- Fixed broken links and typos in the documentation.
+
+### Authors
+
+- Madhur Tandon <madhurtandon23@gmail.com>
+
+### Fixed
+
+- Result status comparison
+- Raise error on extra args/kwargs
+- Fixed redispatching and trigger server address passing in base trigger
+
+## [0.221.0-rc.0] - 2023-04-17
+
+### Authors
+
+- Faiyaz Hasan <faiyaz@agnostiq.ai>
+
+### Changed
+
+- Moved TransportableObject from transport.py to a new file transportable_object.py.
+
+## [0.220.0-rc.0] - 2023-04-14
+
+### Authors
+
+- Alejandro Esquivel <ae@alejandro.ltd>
+- Faiyaz Hasan <faiyaz@agnostiq.ai>
+- Sankalp Sanand <sankalp@agnostiq.ai>
+- Co-authored-by: kessler-frost <ssanand@hawk.iit.edu>
+- Co-authored-by: pre-commit-ci[bot] <66853113+pre-commit-ci[bot]@users.noreply.github.com>
+- Venkat Bala <15014089+venkatBala@users.noreply.github.com>
+- Co-authored-by: Santosh kumar <29346072+santoshkumarradha@users.noreply.github.com>
+- dwelsch-esi <116022979+dwelsch-esi@users.noreply.github.com>
+- Ara Ghukasyan <38226926+araghukas@users.noreply.github.com>
+
+### Operations
+
+- Updating `nightly` frequency (temp)
+
+### Added
+
+- Tutorial for hybrid neural network using Covalent, AWSBatch, and Qiskit Runtime.
+- Environment variable that users can set to specify the location where Covalent can find their defined executors.
+- Task group id in Electrons.
+- Reconstruct postprocessing method.
+
+### Fixed
+
+- Doubling of nodes that are added to the transport graph.
+- Ensure postprocessing node end time is added as the workflow end time.
+- Functional tests
+- Custom executor how to guide, and its loading mechanism in covalent server.
+- Broken postprocessing unit test.
+
+### Added
+
+- Postprocessing as electrons.
+- Postprocessing class in `postprocessing.py` module for all the different postprocessing helper methods and algorithms.
+
+### Changed
+
+- Postprocessing logic.
+- Sublattice logic. Sublattices are now treated as electrons. Once the transport graph has been built, the status get changed to `DISPATCHING` at which point it is executed as another workflow.
+
+### Removed
+
+- Postprocessing from runners.
+
+### Docs
+
+- Updated How-to documents.
+- Port of Pennylane's Univariate QVR tutorial using Covalent to this repo.
+- Adding troubleshooting guide to RTD's
+- Added a note to First Experiment offering initial intro to executors.
+- Adding Google Batch executor plugin RTD
+
+## [0.219.0-rc.0] - 2023-03-01
+
+### Authors
+
+- Alejandro Esquivel <ae@alejandro.ltd>
+- Faiyaz Hasan <faiyaz@agnostiq.ai>
+- Sankalp Sanand <sankalp@agnostiq.ai>
+- Co-authored-by: kessler-frost <ssanand@hawk.iit.edu>
+- Co-authored-by: pre-commit-ci[bot] <66853113+pre-commit-ci[bot]@users.noreply.github.com>
+- Venkat Bala <15014089+venkatBala@users.noreply.github.com>
+- Co-authored-by: Santosh kumar <29346072+santoshkumarradha@users.noreply.github.com>
+
+### Docs
+
+- Adding `cancellation` RTD text files
+
+### Added
+
+- `disable_run` option added to enable "saving-only" option on covalent server and not executing the workflow
+- `register_triggers`, `stop_triggers` functions added to `LocalDispatcher` class
+- `triggers` parameter to the lattice metadata
+- `BaseTrigger`, `DirTrigger`, `TimeTrigger` classes added available to be assigned to any lattice enabling the triggers feature
+- `TriggerLoader` class added enabling loading of any kind of triggers including user defined ones without requiring installation
+- CLI options to start covalent server in triggers only, and no triggers mode
+- `is_pending` option added during redispatch to resume execution of a previously "saved-only", i.e pending workflow
+- API routes added for Triggers server
+
+### Changed
+
+- Modified `ct.get_result` to allow for status only requests
+
+### Fixed
+
+- UI crashing if time values are null
+- No longer adding "http://" every time a dispatcher address is provided in local dispatcher class in order to use the provided address exactly
+
+### Docs
+
+- Added documentation for "Triggers" and a separate section for similar "Features"
+- Tutorial guidelines
+
+### Tests
+
+- Updated and added tests to account for all of the above triggers related changes
+
+### Operations
+
+- Lowering number of jest workers as an attempt to fix flaky UI functional tests
+- Added exception for nightly to pass if conda release fails
+
+## [0.218.0-rc.0] - 2023-02-21
+
+### Authors
+
+- Will Cunningham <wjcunningham7@users.noreply.github.com>
+- Venkat Bala <15014089+venkatBala@users.noreply.github.com>
+- Co-authored-by: Santosh kumar <29346072+santoshkumarradha@users.noreply.github.com>
+- Co-authored-by: Alejandro Esquivel <ae@alejandro.ltd>
+- Faiyaz Hasan <faiyaz@agnostiq.ai>
+- Sankalp Sanand <sankalp@agnostiq.ai>
+- Co-authored-by: kessler-frost <ssanand@hawk.iit.edu>
+- Co-authored-by: Venkat Bala <venkat@agnostiq.ai>
+
+### Added
+
+- Added feature to support cancelling workflow dispatches
+- Updating/adding new tests to improve code coverage
+
+### Fixed
+
+- Redispatch bug involving copying reusable nodes from old transport graph to new transport graph.
+- Pennylane tutorial notebook.
+
+### Docs
+
+- Redispatch API section.
+- Add how to for redispatch.
+- Mention redispatch in the concepts section.
+- Update `AWS Lambda` executor RTD with steps to extend the base executor image for installing custom packages
+
+### Changed
+
+- Enhanced the Dockerfile to include builds from various sources and a differentiation between SDK and Server builds
+
+### Operations
+
+- Updated pre-commit hook versions
+- Updated codecov upload steps in tests workflow to fail if upload to codecov fails
+
+## [0.217.0-rc.0] - 2023-02-12
+
+### Authors
+
+- Faiyaz Hasan <faiyaz@agnostiq.ai>
+- dwelsch-esi <116022979+dwelsch-esi@users.noreply.github.com>
+- Co-authored-by: dwelsch-memverge <david.welsch@memverge.com>
+- Co-authored-by: pre-commit-ci[bot] <66853113+pre-commit-ci[bot]@users.noreply.github.com>
+- Co-authored-by: Santosh kumar <29346072+santoshkumarradha@users.noreply.github.com>
+- Co-authored-by: Will Cunningham <wjcunningham7@gmail.com>
+
+### Fixed
+
+- Redispatch bug.
+
+### Changed
+
+- Location of function to load result from the database now moved to load module in covalent_dispatcher/\_db folde.
+
+### Added
+
+- API endpoint for redispatching.
+- Unit and functional tests for redispatching.
+
+### Docs
+
+- Updated self-deployment (server deployment).
+
+## [0.216.0-rc.0] - 2023-02-05
+
+### Authors
+
+- Venkat Bala <15014089+venkatBala@users.noreply.github.com>
+- Co-authored-by: Alejandro Esquivel <ae@alejandro.ltd>
+- Faiyaz Hasan <faiyaz@agnostiq.ai>
+- Ara Ghukasyan <38226926+araghukas@users.noreply.github.com>
+
+### Removed
+
+- References to specific IBMQ hub/group/project in tutorial 5
+
+### Added
+
+- TransportGraphOps class for diffing operations on transport graphs.
+- Added make derived dispatch method.
+- Apply electron updates method to \_TransportGraph.
+
+### Operations
+
+- Added job in `nightly` to trigger base executor image builds after a Covalent `pre-release`
+
+## [0.215.0-rc.0] - 2023-02-01
+
+### Authors
+
+- Faiyaz Hasan <faiyaz@agnostiq.ai>
+- Alejandro Esquivel <ae@alejandro.ltd>
+
+### Docs
+
+- Added IBMQ tutorial
+
+### Added
+
+- Workflow re-dispatching functionality.
+
+## [0.214.0-rc.0] - 2023-01-25
+
+### Authors
+
+- Faiyaz Hasan <faiyaz@agnostiq.ai>
+- Alejandro Esquivel <ae@alejandro.ltd>
+
+### Operations
+
+- Fixed stable-changelog action removed `.catch` added `.on('error')`
+- Removed AWS base executor deployment from `release.yml`
+- Removed experimental tests from nightly test matrix (will be brought back but in different workflow)
+- Updated release workflow to continue if release tag already exists
+
+### Removed
+
+- Slurm executor reference from qaoa tutorial since it's not compatible with conda env at the moment.
+
+### Fixed
+
+- Braket pip installation instructions.
+
+## [0.213.2-rc.0] - 2023-01-21
+
+### Authors
+
+- Will Cunningham <wjcunningham7@users.noreply.github.com>
+
+### Fixed
+
+- Removing the entrypoint for SDK-only install
+- Updating client requirements to match server versions
+
+## [0.213.1-rc.0] - 2023-01-20
+
+### Authors
+
+- Faiyaz Hasan <faiyaz@agnostiq.ai>
+- Alejandro Esquivel <ae@alejandro.ltd>
+- dwelsch-esi <116022979+dwelsch-esi@users.noreply.github.com>
+
+### Fixed
+
+- Load plugins only when COVALENT_PLUGIN_LOAD environment variable has been set to a Truthy value.
+
+### Docs
+
+- Published Self-Deployment Guide
+
+## [0.213.0-rc.0] - 2023-01-18
+
+### Authors
+
+- dwelsch-esi <116022979+dwelsch-esi@users.noreply.github.com>
+- Co-authored-by: dwelsch-memverge <david.welsch@memverge.com>
+- Co-authored-by: pre-commit-ci[bot] <66853113+pre-commit-ci[bot]@users.noreply.github.com>
+- Sankalp Sanand <sankalp@agnostiq.ai>
+- Co-authored-by: kessler-frost <ssanand@hawk.iit.edu>
+- Co-authored-by: Faiyaz Hasan <faiyaz@agnostiq.ai>
+- Co-authored-by: Casey Jao <casey@agnostiq.ai>
+- Co-authored-by: Santosh kumar <29346072+santoshkumarradha@users.noreply.github.com>
+- Co-authored-by: Will Cunningham <wjcunningham7@gmail.com>
+- Will Cunningham <wjcunningham7@users.noreply.github.com>
+- Co-authored-by: Alejandro Esquivel <ae@alejandro.ltd>
+
+### Fixed
+
+- MNIST tutorial now shows non-Null outputs and the classifier training log image has been updated.
+- Minor changes to tutorials: autoencoder, quantum and classical svm, ensemble classification, iris classification with Pennylane, quantum chemistry, DNN tutorial, qaoa, spacetime tutorial etc.
+- The range of `networkx` versions in requirements.txt weren't compatible with each other, thus it is pinned to `2.8.6` now
+- SDK-only sdist and installation should now work as expected, not packaging the server
+
+### Added
+
+- Added `dispatcher_addr` argument to `ct.get_result` similar to `ct.dispatch` so that it doesn't always fallback to using the default configured address
+
+### Tests
+
+- Updated `_get_result_from_dispatcher` test to verify whether using a link directly works or not
+
+### Docs
+
+- Revised UI reference. Added Settings page documentation.
+- Added broken UI links in README
+
+## [0.212.1-rc.0] - 2023-01-14
+
+### Authors
+
+- Casey Jao <casey@agnostiq.ai>
+
+### Fixed
+
+- Fixed naming of collection nodes (was breaking postprocessing)
+- Restored compatibility with stable release of AWS executors
+
+## [0.212.0-rc.0] - 2023-01-13
+
+### Authors
+
+- Prasanna Venkatesh <54540812+Prasy12@users.noreply.github.com>
+- Co-authored-by: kamalesh.suresh <kamalesh.suresh@psiog.com>
+- Co-authored-by: Amalan Jenicious F <amalan.jenicious@psiog.com>
+- Co-authored-by: Alejandro Esquivel <ae@alejandro.ltd>
+
+### Added
+
+- Front-end pending unit tests for the GUI.
+
+## [0.211.1-rc.0] - 2023-01-12
+
+### Authors
+
+- Prasanna Venkatesh <54540812+Prasy12@users.noreply.github.com>
+- Co-authored-by: Aravind-psiog <aravind.prabaharan@psiog.com>
+- Co-authored-by: ArunPsiog <arun.mukesh@psiog.com>
+- Co-authored-by: Alejandro Esquivel <ae@alejandro.ltd>
+
+### Fixed
+
+- Optimization of logs on the GUI for large log file sizes.
+- Fixed UI pagination not working for more than 11 pages
+- Runtime field counting down for select running dispatches
+
+## [0.211.0-rc.0] - 2023-01-10
+
+### Authors
+
+- Alejandro Esquivel <ae@alejandro.ltd>
+
+### Changed
+
+- Changed decode-uri-component package version on webapp yarn-lock file.
+- Changed json5 package version on webapp yarn-lock file.
+
+## [0.210.0-rc.0] - 2023-01-05
+
+### Authors
+
+- Alejandro Esquivel <ae@alejandro.ltd>
+
+### Changed
+
+- Reverted nightly frequency back to once a day
+
+### Docs
+
+- Updated compatibility matrix
+
+## [0.209.1-rc.0] - 2022-12-15
+
+### Authors
+
+- Alejandro Esquivel <ae@alejandro.ltd>
+- dwelsch-esi <116022979+dwelsch-esi@users.noreply.github.com>
+- Co-authored-by: dwelsch-memverge <david.welsch@memverge.com>
+- Co-authored-by: Santosh kumar <29346072+santoshkumarradha@users.noreply.github.com>
+- Co-authored-by: pre-commit-ci[bot] <66853113+pre-commit-ci[bot]@users.noreply.github.com>
+- Co-authored-by: santoshkumarradha <santosh@agnostiq.ai>
+- RaviPsiog <111348352+RaviPsiog@users.noreply.github.com>
+- Co-authored-by: RaviPsiog <ravieja.gurram@psiog.com>
+- Co-authored-by: Faiyaz Hasan <faiyaz@agnostiq.ai>
+- Casey Jao <casey@agnostiq.ai>
+- Co-authored-by: Will Cunningham <wjcunningham7@users.noreply.github.com>
+- Prasanna Venkatesh <54540812+Prasy12@users.noreply.github.com>
+- Ara Ghukasyan <38226926+araghukas@users.noreply.github.com>
+- Venkat Bala <15014089+venkatBala@users.noreply.github.com>
+- Co-authored-by: Venkat Bala <venkat@agnostiq.ai>
+
+### Fixed
+
+- Removed merge conflict symbols in changelog
+
+## [0.209.0-rc.0] - 2022-12-15
+
+### Authors
+
+- Alejandro Esquivel <ae@alejandro.ltd>
+- dwelsch-esi <116022979+dwelsch-esi@users.noreply.github.com>
+- Co-authored-by: dwelsch-memverge <david.welsch@memverge.com>
+- Co-authored-by: Santosh kumar <29346072+santoshkumarradha@users.noreply.github.com>
+- Co-authored-by: pre-commit-ci[bot] <66853113+pre-commit-ci[bot]@users.noreply.github.com>
+- Co-authored-by: santoshkumarradha <santosh@agnostiq.ai>
+- RaviPsiog <111348352+RaviPsiog@users.noreply.github.com>
+- Co-authored-by: RaviPsiog <ravieja.gurram@psiog.com>
+- Co-authored-by: Faiyaz Hasan <faiyaz@agnostiq.ai>
+- Casey Jao <casey@agnostiq.ai>
+- Co-authored-by: Will Cunningham <wjcunningham7@users.noreply.github.com>
+- Prasanna Venkatesh <54540812+Prasy12@users.noreply.github.com>
+- Ara Ghukasyan <38226926+araghukas@users.noreply.github.com>
+- Venkat Bala <15014089+venkatBala@users.noreply.github.com>
+- Co-authored-by: Venkat Bala <venkat@agnostiq.ai>
+
+### Added
+
+- Adding support for PostgresQL DB backend
+- Added check for `COVALENT_DATABASE_URL`, if exists connect sqlalchemy engine using that
+- Adding `COVALENT_DATABASE_USER` and `COVALENT_DATABASE_PASSWORD` environment variables
+- Adding `COVALENT_DATABASE_HOSTNAME` and `COVALENT_DATABASE_PORT` environment variables for easy configuration
+
+### Changed
+
+- Updated `requirements.txt` to include `pyscopg2`
+- Refactored execution.py into loosely coupled modular pieces
+
+### Fixed
+
+- Build graph now sets all unset lattice constraints from defaults
+- Fixed all failing functional tests
+- Fixed local executor tests on MacOS by adding ProcessPoolExecutor
+
+### Changed
+
+- Updated `directory` like default environment variable paths to avoid creating redundant nested directories when self-hosting
+
+### Docs
+
+- Adding `Deployment` section for self-hosting guide
+
+### Docs
+
+- Rewrote Concepts section in docs
+- Split Concepts into API, server, and UI sections
+- Added new examples and graphics for Concepts
+
+### Fixed
+
+- Respecting specified AWS profile & region in remote executed S3 file transfers, defaulting to env vars of execution backend
+
+### Added
+
+- Added `TaskRuntimeError` exception for executor plugin implementations to signal to Covalent that a task raised an
+  unhandled exception while running in the executor backend.
+- Added environment variable for a remote database backend
+- Added support for mysql and postgresql
+
+### Changed
+
+- Docs for Covalent's Slurm plugin updated with explanation for optional `srun` parameters.
+- Electron errors are segregated by type; task runtime errors are
+  stored in `stderr` while the `error` attribute of a node is reserved
+  for exceptions raised by Covalent itself.
+- When tasks fail in a workflow, the Lattice ErrorCard in the UI summarizes the failed tasks.
+
+### Fixed
+
+- Electrons will inherit the lattice executors.
+- Sublattices inherit the parent lattice executor.
+- When several electrons are running concurrently, their stdout and stderr are stored in the correct graph nodes.
+- Electron errors now appear in the Electron ErrorCard when one clicks on a failed task in the UI.
+- When an electron raises an exception during execution, the local and dask executors now try to recover any output that was already
+  written.
+- Fixed functional tests.
+- Added `requirements-client.txt` to MANIFEST file
+- Respecting specified AWS profile & region in remote executed S3 file transfers, defaulting to env vars of execution backend
+- Fixed local executor tests on MacOS (second attempt)
+- The `initialize_results_dir` method attempts to use an environment variable instead of the results directory in the payload
+- Modified certain sqlalchemy commands for postgres compatibility
+- Removed references to results_dir in the payload
+
+### Docs
+
+- Added DNN tutorial
+- Updated AWS Plugins install instructions
+- Updated AWS Plugins documentation (minor fixes)
+- Rewrote intro material in README.
+- Changed "Citation" in the README.
+- Renamed "Release Notes" to "What's New?" in the README. Updated What's New with a description of the newest GUI functionality.
+- Added "Quick Start" guide.
+- Updated and reorganized doc landing page.
+- Rewrote "Getting Started" page.
+- Broke out "Installing from Source" instructions to separate page.
+- Corrected some API class names in headers.
+- Added an executors-and-UI graphic.
+- Adding `Deployment` section for self-hosting guide
+
+## [0.208.0-rc.0] - 2022-11-05
+
+### Authors
+
+- Faiyaz Hasan <faiyaz@agnostiq.ai>
+- Casey Jao <casey@agnostiq.ai>
+- Alejandro Esquivel <ae@alejandro.ltd>
+
+### Operations
+
+- Reverted nightly schedule back to daily at 4:00am
+- Added Alejandro to PAUL_BLART group to allow trigerring of releases
+
+### Added
+
+- Support for transferring the contents of folders to and from S3 buckets using the file transfer module.
+
+### Docs
+
+- Rewrote intro material in README.
+- Changed "Citation" in the README.
+- Renamed "Release Notes" to "What's New?" in the README. Updated What's New with a description of the newest GUI functionality.
+
+### Fixed
+
+- Folder transfer unit test.
+- Folder transfer download bug
+- Result objects now print correctly when nodes fail
+
+### Changed
+
+- Width of lattice name column on dispatch list GUI.
+- Optimzing larger graphs for better performance.
+
+## [0.207.0-rc.0] - 2022-10-26
+
+### Authors
+
+- Alejandro Esquivel <ae@alejandro.ltd>
+- Co-authored-by: pre-commit-ci[bot] <66853113+pre-commit-ci[bot]@users.noreply.github.com>
+
+### Changed
+
+- Running migrations automatically if none have run in the past (fresh installs, after purging)
+
+## [0.206.0-rc.0] - 2022-10-26
+
+### Authors
+
+- Akalanka <8133713+boneyag@users.noreply.github.com>
+- Co-authored-by: Will Cunningham <wjcunningham7@users.noreply.github.com>
+- Co-authored-by: Scott Wyman Neagle <scott@agnostiq.ai>
+- Scott Wyman Neagle <wymnea@protonmail.com>
+- Co-authored-by: Will Cunningham <wjcunningham7@gmail.com>
+- Co-authored-by: Alejandro Esquivel <ae@alejandro.ltd>
+- Co-authored-by: Faiyaz Hasan <faiyaz@agnostiq.ai>
+- Casey Jao <casey@agnostiq.ai>
+- Venkat Bala <15014089+venkatBala@users.noreply.github.com>
+
+### Docs
+
+- Updated AWS Lambda executor docs to address conflict with using public ecr registries
+
+### Docs
+
+- Fixed missing RTD content under API section for covalent, cli, leptons, deps, data transfer
+
+### Fixed
+
+- Enabling logging by default
+- Removed debugging output
+- Clarify cli output when `covalent db migrate` needs to be run
+
+### Changed
+
+- Single line call to join instead of a for loop
+- Updated black, mirrors-prettier, and detect-secrets in pre-commit hooks
+
+### Operations
+
+- Updated hotfix logic to run on a merge to a release branch
+- CodeQL workflow uses a test matrix to scan all repos in the Covalent ecosystem
+
+## [0.205.0-rc.0] - 2022-10-19
+
+### Authors
+
+- Alejandro Esquivel <ae@alejandro.ltd>
+- Venkat Bala <15014089+venkatBala@users.noreply.github.com>
+- Casey Jao <casey@agnostiq.ai>
+
+### Changed
+
+- Made `root_dispatch_id` nullable to circumvent migration issues with sqlite in certain platforms
+
+### Operations
+
+- Updated all CI Slack alerts to all go to the #covalent-ci channel
+
+### Fixed
+
+- Rendering newlines in ErrorCard on the UI for displaying error stacktraces
+- VERSION incrementing logic in changelog
+- Fixed v11 migration to use render as batch to make DROP operations compatible with sqlite
+
+## [0.204.1-rc.0] - 2022-10-18
+
+### Authors
+
+- Alejandro Esquivel <ae@alejandro.ltd>
+- Venkat Bala <15014089+venkatBala@users.noreply.github.com>
+- Casey Jao <casey@agnostiq.ai>
+
+### Fixed
+
+- `covalent restart` honors the `sdk.no_cluster` setting
+
+### Docs
+
+- Updated RTD with details about the new AWS lambda executor interface
+
+### Operations
+
+- Removed PAUL_BLART check on build sdist step in release.yml
+- Consolidated pre & stable build into one step in release.yml
+
+## [0.204.0-rc.0] - 2022-10-17
+
+### Authors
+
+- Alejandro Esquivel <ae@alejandro.ltd>
+- Prasanna Venkatesh <54540812+Prasy12@users.noreply.github.com>
+- Co-authored-by: Aravind-psiog <aravind.prabaharan@psiog.com>
+- Co-authored-by: Manjunath PV <manjunath.poilath@psiog.com>
+- Co-authored-by: pre-commit-ci[bot] <66853113+pre-commit-ci[bot]@users.noreply.github.com>
+- Co-authored-by: RaviPsiog <raviteja.gurram@psiog.com>
+- Co-authored-by: RaviPsiog <ravieja.gurram@psiog.com>
+- Aravind <100823292+Aravind-psiog@users.noreply.github.com>
+- Co-authored-by: Prasy12 <prasanna.venkatesh@psiog.com>
+
+### Operations
+
+- Fixing the validate distribution step given changes in -rc0 suffix to version
+
+### Added
+
+- RTD for User Interface
+- Minor GUI fixes
+
+### Fixed
+
+- Re-applying default executor fix post config file reunification
+
+## [0.203.0-rc.0] - 2022-10-14
+
+### Authors
+
+- Prasanna Venkatesh <54540812+Prasy12@users.noreply.github.com>
+- Co-authored-by: Aravind-psiog <aravind.prabaharan@psiog.com>
+- Co-authored-by: kamalesh.suresh <kamalesh.suresh@psiog.com>
+- Co-authored-by: pre-commit-ci[bot] <66853113+pre-commit-ci[bot]@users.noreply.github.com>
+- Casey Jao <casey@agnostiq.ai>
+- Scott Wyman Neagle <wymnea@protonmail.com>
+- Co-authored-by: Scott Wyman Neagle <scott@agnostiq.ai>
+- Co-authored-by: Alejandro Esquivel <ae@alejandro.ltd>
+- Will Cunningham <wjcunningham7@users.noreply.github.com>
+- Will Cunningham <wjcunningham7@gmail.com>
+
+### Added
+
+- Ability to use terminal on the GUI.
+
+### Fixed
+
+- Exceptions when instantiating executors are handled
+- Covalent start now waits for the server to settle before returning
+
+### Operations
+
+- updated hotfix logic to run on a merge to a release branch
+- Fixing js github actions dist by re-building from develop
+- Fixing syntax in describe action & compiled action manually
+
+## [0.202.0] - 2022-10-11
+
+### Authors
+
+- Prasanna Venkatesh <54540812+Prasy12@users.noreply.github.com>
+- Co-authored-by: ArunPsiog <arun.mukesh@psiog.com>
+- Co-authored-by: kamalesh.suresh <kamalesh.suresh@psiog.com>
+- Co-authored-by: Amalan Jenicious F <amalan.jenicious@psiog.com>
+- Co-authored-by: Alejandro Esquivel <ae@alejandro.ltd>
+- Casey Jao <casey@agnostiq.ai>
+
+### Added
+
+- Ability to view sublattices list as part of the main lattice
+- Ability to view subalattices graph as part of main lattice
+
+### Fixed
+
+- Electron dependencies are no longer written twice to the DB during a workflow
+
+## [0.201.0] - 2022-10-09
+
+### Authors
+
+- Venkat Bala <15014089+venkatBala@users.noreply.github.com>
+- Will Cunningham <wjcunningham7@users.noreply.github.com>
+- Co-authored-by: Scott Wyman Neagle <scott@agnostiq.ai>
+- Co-authored-by: Alejandro Esquivel <ae@alejandro.ltd>
+- Aravind <100823292+Aravind-psiog@users.noreply.github.com>
+- Co-authored-by: Amalan Jenicious F <amalan.jenicious@psiog.com>
+- Co-authored-by: kamalesh.suresh <kamalesh.suresh@psiog.com>
+- Co-authored-by: Prasy12 <prasanna.venkatesh@psiog.com>
+- Co-authored-by: ArunPsiog <arun.mukesh@psiog.com>
+- Co-authored-by: pre-commit-ci[bot] <66853113+pre-commit-ci[bot]@users.noreply.github.com>
+- Co-authored-by: Casey Jao <casey@agnostiq.ai>
+- Co-authored-by: Will Cunningham <wjcunningham7@gmail.com>
+- Okechukwu Emmanuel Ochia <okechukwu@agnostiq.ai>
+- Scott Wyman Neagle <wymnea@protonmail.com>
+
+### Docs
+
+- Added AWS Plugins RTD page
+
+### Fixed
+
+- Updated import statements in alembic `env.py` file to refer to updated location of `DataStore` class
+- Imports in entry_point
+
+### Docs
+
+- Fixed the docstring for `get_node_error`
+
+### Changed
+
+- move `upsert_lattice_data()` to dispatcher
+- move `upsert_electron_data()` to dispatcher
+- move `insert_electron_dependency_data()` to dispatcher
+- move `persist()` to dispatcher
+- move `get_unique_id()` to dispatcher
+- move `initialize_result_object()` to dispatcher
+
+### Removed
+
+- `get_node_value` from `Result`
+
+### Tests
+
+- Updated more functional tests
+
+## [0.200.0] - 2022-10-05
+
+### Authors
+
+- Venkat Bala <15014089+venkatBala@users.noreply.github.com>
+- Scott Wyman Neagle <scott@agnostiq.ai>
+- Co-authored-by: Faiyaz Hasan <faiyaz@agnostiq.ai>
+- Co-authored-by: Will Cunningham <wjcunningham7@gmail.com>
+- Will Cunningham <wjcunningham7@users.noreply.github.com>
+- Co-authored-by: Alejandro Esquivel <ae@alejandro.ltd>
+- Co-authored-by: pre-commit-ci[bot] <66853113+pre-commit-ci[bot]@users.noreply.github.com>
+- Aravind <100823292+Aravind-psiog@users.noreply.github.com>
+- Co-authored-by: Amalan Jenicious F <amalan.jenicious@psiog.com>
+- Co-authored-by: kamalesh.suresh <kamalesh.suresh@psiog.com>
+- Co-authored-by: Prasy12 <prasanna.venkatesh@psiog.com>
+- Co-authored-by: ArunPsiog <arun.mukesh@psiog.com>
+- Co-authored-by: Casey Jao <casey@agnostiq.ai>
+- Okechukwu Emmanuel Ochia <okechukwu@agnostiq.ai>
+
+## Docs
+
+- Updated ECS Executor RTD with config & cloud resources table
+
+### Added
+
+- Ability to view the configuration file on the GUI as settings
+- Ability to copy python objects for inputs and results for lattice and electrons
+
+### Fixed
+
+- Minor GUI bugs and improvements
+
+### Docs
+
+- Updated Lambda Executor RTD with config & cloud resources table
+- Updated EC2, Braket, and Batch AWS Executors RTD with config & cloud resources table
+
+### Operations
+
+- Fixed syntax issues in `nightly.yml`
+- Add `repository` arg to checkout in `version`
+- fix `octokit` request action route, update env token
+- create stable versions for stable releases
+- add `fetch-depth: 0` to fetch entire history
+- fix regex for matching version
+- add `persist-credentials: false` in nightly
+- Update `nightly` schedule to midnight EST
+- Added CI for Ubuntu 22.04 / Python 3.8, 3.9
+- Added CI for Centos 7 / Python 3.9
+- Added experimental CI for Debian 11 / Python 3.11rc2
+- Renamed Ubuntu images to Debian for accuracy
+- Adding boilerplate workflow
+- Syntax fixes in release.yml
+- Verbose failure messages in boilerplate workflow
+- Change license.yml to pip-license-checker action
+
+## [0.199.0] - 2022-09-29
+
+### Authors
+
+- Venkat Bala <15014089+venkatBala@users.noreply.github.com>
+- Co-authored-by: Will Cunningham <wjcunningham7@gmail.com>
+- Co-authored-by: Scott Wyman Neagle <scott@agnostiq.ai>
+- Will Cunningham <wjcunningham7@users.noreply.github.com>
+- Sankalp Sanand <sankalp@agnostiq.ai>
+- Casey Jao <casey@agnostiq.ai>
+- Prasanna Venkatesh <54540812+Prasy12@users.noreply.github.com>
+- Co-authored-by: Manjunath PV <manjunath.poilath@psiog.com>
+- Co-authored-by: kamalesh.suresh <kamalesh.suresh@psiog.com>
+- Co-authored-by: ArunPsiog <arun.mukesh@psiog.com>
+- Co-authored-by: RaviPsiog <raviteja.gurram@psiog.com>
+- Co-authored-by: pre-commit-ci[bot] <66853113+pre-commit-ci[bot]@users.noreply.github.com>
+- Co-authored-by: Faiyaz Hasan <faiyaz@agnostiq.ai>
+- Co-authored-by: Alejandro Esquivel <ae@alejandro.ltd>
+
+### Tests
+
+- Fixed `asserts` in stress tests
+- Added unit tests for `defaults.py`
+- Updated `test_sync()` to match the new function signature.
+
+### Added
+
+- `requirements-client.txt` file added.
+- Logs tab on the GUI which displays the covalent logs and also the ability to download the log file.
+- Missing copyrights to the file transfer module.
+
+### Fixed
+
+- Config file is now locked during reads and writes to mitigate concurrency issues
+- In `defaults.py/get_default_executor`, condition to return `local` or `dask` is now fixed
+- Strip "/" from the S3 bucket download "from file path" and the upload "to file path"
+- Correctly return stderr in get_node_result
+
+### Changed
+
+- Installation requirements are now split into client side and server side requirements' files.
+- `setup.py` modified to install client side requirements only, if `COVALENT_SDK_ONLY` environment variable is present and `True`.
+- Updated `requirements.txt` and `tests/requirements.txt`
+- Updated `nbconvert` by dependabot
+- Split the `ConfigManager` into `Client` and `Server` components
+- Update the `set/get/update` config methods to distinguish between the client and server parts
+- `get_all_node_results()` uses in memory `Result` instead of DB
+- `get_all_node_outputs()` uses in memory Result instead of DB
+
+### Removed
+
+- The DB dependency in `sync()`
+- The ability for `sync()` to wait for all dispatches.
+
+### Docs
+
+- Fixed a notebook which was not rendering
+
+### Operations
+
+- Updating all references to local workflows
+- Adding `nightly.yml` workflow for nightly CI
+- Updated triggers to `tests` and `changelog` workflows
+- Enhanced pre-release workflows
+- `codecov` passthrough jobs added for when tests are not run
+- Tests are run on one platform on pushes to `develop` to keep codecov reports accurate
+- Test matrix source triggers changed from `workflow_call` to `schedule` since contexts are inherited
+- Removed badges workflow; version badge is now generated using the latest pre-release tag
+- Removed unused `push_to_s3` workflow
+- Workflows authenticate to AWS using OIDC with specific roles
+- Only the recommended platform is tested on pull requests
+- Update check blocks to assert the `workflow_call` event type is replaced with `schedule`
+- Create a hotfix when pushing to a release branch
+- Update nightly trigger to `hourly` for testing
+- Update `changelog` action token to `COVALENT_OPS_BOT_TOKEN`
+- Remove `benchmark` workflow from `nightly` schedule
+- Removed payload dependency from changelog action so it can run on a schedule
+- Remove `benchmark` workflow from `nightly` schedule
+
+## [0.198.0] - 2022-09-14
+
+### Authors
+
+- Scott Wyman Neagle <scott@agnostiq.ai>
+- Co-authored-by: Will Cunningham <wjcunningham7@gmail.com>
+
+### Operations
+
+- Fix `release.yml` workflow
+- Adding a step in `release.yml/docker` job to trigger the AWS executor base image build in the remote repo `covalent-aws-plugins`
+- Pass all the necessary inputs for the triggered workflow as part of the HTTP POST request body
+- Added MacOS 12 to test matrix
+
+### Changed
+
+- Skipping stalling `dask_executor` functional test
+- Database is initialized in `covalent_ui/app.py` instead of in the CLI's `start` method in order to support management via `start-stop-daemon`.
+- Convert `COVALENT_SVC_PORT` to `int` when parsing env var
+- Skipping stalling `dask_executor` functional test
+
+### Added
+
+- Modified `_DEFAULT_CONSTRAINT_VALUES` to a dataclass called `DefaultMetadataValues`, it is still used as a dictionary everywhere (named `DEFAULT_METADATA_VALUES` instead) but in an object-like manner.
+- Modified `_DEFAULT_CONFIG` to also be a dataclass called `DefaultConfig`, which is initialized whenever needed and used like a dictionary (named `DEFAULT_CONFIG`).
+- `ConfigManager` is now thread safe since it is initialized whenever needed instead of one object being accessed by multiple processes/threads leading to corruption of the config file.
+- Using `contextlib.supress` to ignore `psutil.NoSuchProcess` errors instead of `try/except` with `pass`.
+- Filter workflow dispatches by status on the GUI.
+- Delete all workflow dispatches present in the database from the GUI and add filter level deletion of workflow dispatches as well.
+- Theme changes as part of latest wireframe.
+- Factory functions to generate configurations and default metadata at the time when required. This is because certain values like default executors are only determined when the covalent server starts.
+- Respecting the configuration options like default executor, no. of workers, developer mode, etc. when restarting the server.
+- Unit tests for `remote_executor.py`
+- Added alembic migrations script for DB schema v12
+- Environment variables added to `defaults.py` in order to support system services
+- Covalent OpenRC init script added
+
+### Removed
+
+- Deprecated `_DEFAULT_CONSTRAINTS_DEPRECATED` removed.
+- Confusing `click` argument `no-cluster` instead of flag `--no-cluster` removed; this was also partially responsible for unexpected behaviour with using `no-cluster` option when starting covalent.
+
+### Operations
+
+- Fixed a bug in changelog.yml caused by passing a large list of commits as a var
+
+### Tests
+
+- Updated tests to reflect above changes.
+- Updated more tests to DB schema v12
+- Improved DB mocking in dispatcher tests
+
+### Fixed
+
+- Removed inheritance of `call_before` metadata related to file transfers from parent electron to collected nodes.
+- Executor instances at runtime no longer inadvertently modify
+  transport graph nodes when modifying their attributes.
+- Syntax error in `tests.yml`
+
+### Docs
+
+- Updated AWS Lambda plugin rtd with mention to its limitations.
+- Updated RTD concepts and tutorials to reflect new UI.
+
+## [0.197.0] - 2022-09-08
+
+### Authors
+
+- Will Cunningham <wjcunningham7@users.noreply.github.com>
+- Co-authored-by: Scott Wyman Neagle <scott@agnostiq.ai>
+- Alejandro Esquivel <ae@alejandro.ltd>
+- Co-authored-by: Will Cunningham <wjcunningham7@gmail.com>
+- Aravind-psiog <100823292+Aravind-psiog@users.noreply.github.com>
+- Faiyaz Hasan <faiyaz@agnostiq.ai>
+- Co-authored-by: Venkat Bala <venkat@agnostiq.ai>
+- Prasanna Venkatesh <54540812+Prasy12@users.noreply.github.com>
+- Co-authored-by: Amalan Jenicious F <amalan.jenicious@psiog.com>
+- Okechukwu Emmanuel Ochia <okechukwu@agnostiq.ai>
+- Co-authored-by: pre-commit-ci[bot] <66853113+pre-commit-ci[bot]@users.noreply.github.com>
+- Casey Jao <casey@agnostiq.ai>
+
+### Fixed
+
+- Fixed missing lattice and result object attributes after rehydrating from datastore.
+
+### Changed
+
+- Implemented v12 of the DB schema
+
+### Tests
+
+- Enhanced DB tests to check faithfulness of persist and rehydrate operations
+
+### Docs
+
+- Update user interface docs for filter and delete features.
+- Added credential management page
+
+## [0.196.0] - 2022-09-07
+
+### Authors
+
+- Will Cunningham <wjcunningham7@users.noreply.github.com>
+- Co-authored-by: Scott Wyman Neagle <scott@agnostiq.ai>
+- Alejandro Esquivel <ae@alejandro.ltd>
+- Co-authored-by: Will Cunningham <wjcunningham7@gmail.com>
+- Aravind-psiog <100823292+Aravind-psiog@users.noreply.github.com>
+- Faiyaz Hasan <faiyaz@agnostiq.ai>
+- Co-authored-by: Venkat Bala <venkat@agnostiq.ai>
+- Prasanna Venkatesh <54540812+Prasy12@users.noreply.github.com>
+- Co-authored-by: Amalan Jenicious F <amalan.jenicious@psiog.com>
+- Okechukwu Emmanuel Ochia <okechukwu@agnostiq.ai>
+- Co-authored-by: pre-commit-ci[bot] <66853113+pre-commit-ci[bot]@users.noreply.github.com>
+- Casey Jao <casey@agnostiq.ai>
+
+### Changed
+
+- Sublattices are now run completely internally, without any HTTP calls.
+- Lattice-level metadata is persisted atomically for sublattices.
+
+## [0.195.0] - 2022-09-06
+
+### Authors
+
+- Will Cunningham <wjcunningham7@users.noreply.github.com>
+- Co-authored-by: Scott Wyman Neagle <scott@agnostiq.ai>
+- Alejandro Esquivel <ae@alejandro.ltd>
+- Co-authored-by: Will Cunningham <wjcunningham7@gmail.com>
+- Aravind-psiog <100823292+Aravind-psiog@users.noreply.github.com>
+- Faiyaz Hasan <faiyaz@agnostiq.ai>
+- Co-authored-by: Venkat Bala <venkat@agnostiq.ai>
+- Prasanna Venkatesh <54540812+Prasy12@users.noreply.github.com>
+- Co-authored-by: Amalan Jenicious F <amalan.jenicious@psiog.com>
+- Okechukwu Emmanuel Ochia <okechukwu@agnostiq.ai>
+- Co-authored-by: pre-commit-ci[bot] <66853113+pre-commit-ci[bot]@users.noreply.github.com>
+- Casey Jao <casey@agnostiq.ai>
+
+### Changed
+
+- `import covalent` no longer pulls in the server components
+
+### Operations
+
+- Fixed `tests.yml` where `RECOMMENDED_PLATFORM` was not properly set
+
+## [0.194.0] - 2022-09-06
+
+### Authors
+
+- Will Cunningham <wjcunningham7@users.noreply.github.com>
+- Co-authored-by: Scott Wyman Neagle <scott@agnostiq.ai>
+- Alejandro Esquivel <ae@alejandro.ltd>
+- Co-authored-by: Will Cunningham <wjcunningham7@gmail.com>
+- Aravind-psiog <100823292+Aravind-psiog@users.noreply.github.com>
+- Faiyaz Hasan <faiyaz@agnostiq.ai>
+- Co-authored-by: Venkat Bala <venkat@agnostiq.ai>
+- Prasanna Venkatesh <54540812+Prasy12@users.noreply.github.com>
+- Co-authored-by: Amalan Jenicious F <amalan.jenicious@psiog.com>
+- Okechukwu Emmanuel Ochia <okechukwu@agnostiq.ai>
+- Co-authored-by: pre-commit-ci[bot] <66853113+pre-commit-ci[bot]@users.noreply.github.com>
+- Casey Jao <casey@agnostiq.ai>
+
+### Operations
+
+- Added a workflow which checks for missing or extra requirements
+- Added pycln to pre-commit hooks #867
+
+### Removed
+
+- PyYAML
+- tailer
+
+## [0.193.0] - 2022-09-06
+
+### Authors
+
+- Will Cunningham <wjcunningham7@users.noreply.github.com>
+- Co-authored-by: Scott Wyman Neagle <scott@agnostiq.ai>
+- Alejandro Esquivel <ae@alejandro.ltd>
+- Co-authored-by: Will Cunningham <wjcunningham7@gmail.com>
+- Aravind-psiog <100823292+Aravind-psiog@users.noreply.github.com>
+- Faiyaz Hasan <faiyaz@agnostiq.ai>
+- Co-authored-by: Venkat Bala <venkat@agnostiq.ai>
+- Prasanna Venkatesh <54540812+Prasy12@users.noreply.github.com>
+- Co-authored-by: Amalan Jenicious F <amalan.jenicious@psiog.com>
+- Okechukwu Emmanuel Ochia <okechukwu@agnostiq.ai>
+- Co-authored-by: pre-commit-ci[bot] <66853113+pre-commit-ci[bot]@users.noreply.github.com>
+- Casey Jao <casey@agnostiq.ai>
+
+### Changed
+
+- Refactored executor base classes
+
+### Operations
+
+- pre-commit autoupdate
+
+## [0.192.0] - 2022-09-02
+
+### Authors
+
+- Will Cunningham <wjcunningham7@users.noreply.github.com>
+- Co-authored-by: Scott Wyman Neagle <scott@agnostiq.ai>
+- Alejandro Esquivel <ae@alejandro.ltd>
+- Co-authored-by: Will Cunningham <wjcunningham7@gmail.com>
+- Aravind-psiog <100823292+Aravind-psiog@users.noreply.github.com>
+- Faiyaz Hasan <faiyaz@agnostiq.ai>
+- Co-authored-by: Venkat Bala <venkat@agnostiq.ai>
+- Prasanna Venkatesh <54540812+Prasy12@users.noreply.github.com>
+- Co-authored-by: Amalan Jenicious F <amalan.jenicious@psiog.com>
+- Okechukwu Emmanuel Ochia <okechukwu@agnostiq.ai>
+- Co-authored-by: pre-commit-ci[bot] <66853113+pre-commit-ci[bot]@users.noreply.github.com>
+
+### Changed
+
+- Modified how `no_cluster` is passed to `app.py` from the CLI
+
+## [0.191.0] - 2022-09-01
+
+### Authors
+
+- Will Cunningham <wjcunningham7@users.noreply.github.com>
+- Co-authored-by: Scott Wyman Neagle <scott@agnostiq.ai>
+- Alejandro Esquivel <ae@alejandro.ltd>
+- Co-authored-by: Will Cunningham <wjcunningham7@gmail.com>
+- Aravind-psiog <100823292+Aravind-psiog@users.noreply.github.com>
+- Faiyaz Hasan <faiyaz@agnostiq.ai>
+- Co-authored-by: Venkat Bala <venkat@agnostiq.ai>
+- Prasanna Venkatesh <54540812+Prasy12@users.noreply.github.com>
+- Co-authored-by: Amalan Jenicious F <amalan.jenicious@psiog.com>
+- Okechukwu Emmanuel Ochia <okechukwu@agnostiq.ai>
+- Co-authored-by: pre-commit-ci[bot] <66853113+pre-commit-ci[bot]@users.noreply.github.com>
+
+### Added
+
+- Implementation of RemoteExecutor
+
+## [0.190.0] - 2022-09-01
+
+### Authors
+
+- Will Cunningham <wjcunningham7@users.noreply.github.com>
+- Co-authored-by: Scott Wyman Neagle <scott@agnostiq.ai>
+- Alejandro Esquivel <ae@alejandro.ltd>
+- Co-authored-by: Will Cunningham <wjcunningham7@gmail.com>
+- Aravind-psiog <100823292+Aravind-psiog@users.noreply.github.com>
+- Faiyaz Hasan <faiyaz@agnostiq.ai>
+- Co-authored-by: Venkat Bala <venkat@agnostiq.ai>
+- Prasanna Venkatesh <54540812+Prasy12@users.noreply.github.com>
+- Co-authored-by: Amalan Jenicious F <amalan.jenicious@psiog.com>
+- Okechukwu Emmanuel Ochia <okechukwu@agnostiq.ai>
+
+### Changed
+
+- Renamed `BaseAsyncExecutor` and its references to `AsyncBaseExecutor`.
+
+## [0.189.0] - 2022-08-31
+
+### Authors
+
+- Will Cunningham <wjcunningham7@users.noreply.github.com>
+- Co-authored-by: Scott Wyman Neagle <scott@agnostiq.ai>
+- Alejandro Esquivel <ae@alejandro.ltd>
+- Co-authored-by: Will Cunningham <wjcunningham7@gmail.com>
+- Aravind-psiog <100823292+Aravind-psiog@users.noreply.github.com>
+- Faiyaz Hasan <faiyaz@agnostiq.ai>
+- Co-authored-by: Venkat Bala <venkat@agnostiq.ai>
+- Prasanna Venkatesh <54540812+Prasy12@users.noreply.github.com>
+- Co-authored-by: Amalan Jenicious F <amalan.jenicious@psiog.com>
+
+### Added
+
+- Added capability to take screenshot of the graph with covalent logo on the GUI.
+
+### Operations
+
+- Changed the environment switches in tests.yml to be `true`/empty instead of 1/0
+
+- Adding `benchmark.yml` workflow
+
+### Tests
+
+- Adding scripts in `tests/stress_tests/benchmarks`
+
+## [0.188.0] - 2022-08-31
+
+### Authors
+
+- Will Cunningham <wjcunningham7@users.noreply.github.com>
+- Co-authored-by: Scott Wyman Neagle <scott@agnostiq.ai>
+- Alejandro Esquivel <ae@alejandro.ltd>
+- Co-authored-by: Will Cunningham <wjcunningham7@gmail.com>
+- Aravind-psiog <100823292+Aravind-psiog@users.noreply.github.com>
+
+### Added
+
+- Created a prototype of a production Dockerfile
+- The old Dockerfile has been moved to Dockerfile.dev
+
+### Docs
+
+- Added db schema migration error guide in RTD
+- Removed `get_data_store` from quantum chemistry tutorial #1046
+
+### Operations
+
+- Front-end test coverage measured and reported in CI
+- Added reusable version action
+
+- Added read the docs for user interface
+
+## [0.187.0] - 2022-08-28
+
+### Authors
+
+- Prasanna Venkatesh <54540812+Prasy12@users.noreply.github.com>
+- Co-authored-by: Kamalesh-suresh <kamalesh.suresh@psiog.com>
+- Co-authored-by: Amalan Jenicious F <amalan.jenicious@psiog.com>
+- Co-authored-by: pre-commit-ci[bot] <66853113+pre-commit-ci[bot]@users.noreply.github.com>
+
+### Tests
+
+- Fixed `test_using_executor_names` and `test_internal_sublattice_dispatch` tests to also work with `--no-cluster` option.
+
+### Added
+
+- Added test cases for front-end react components.
+
+## [0.186.0] - 2022-08-25
+
+### Authors
+
+- Sankalp Sanand <sankalp@agnostiq.ai>
+- Co-authored-by: Alejandro Esquivel <ae@alejandro.ltd>
+- Venkat Bala <venkat@agnostiq.ai>
+- Okechukwu Emmanuel Ochia <okechukwu@agnostiq.ai>
+- Co-authored-by: pre-commit-ci[bot] <66853113+pre-commit-ci[bot]@users.noreply.github.com>
+- Co-authored-by: Will Cunningham <wjcunningham7@gmail.com>
+- Co-authored-by: Scott Wyman Neagle <scott@agnostiq.ai>
+- Venkat Bala <15014089+venkatBala@users.noreply.github.com>
+- Aravind-psiog <100823292+Aravind-psiog@users.noreply.github.com>
+- Co-authored-by: Kamalesh-suresh <kamalesh.suresh@psiog.com>
+- Co-authored-by: Prasy12 <prasanna.venkatesh@psiog.com>
+
+### Operations
+
+- Fix conditional logic around dumping of `covalent` logs to stdout in test workflows
+- Build test matrix by parsing configs from json
+- Dump covalent logs if any of the tests step fail
+- changed-files action uses the proper sha in version.yml
+
+### Docs
+
+- Added RTD and header for the AWS EC2 executor plugin.
+- Refactored tutorials for better organization
+
+### Added
+
+- Added executor label, node id and node type to graph node UI
+
+### Changed
+
+- Runtime has been modified to be more precise on the lattice and electron sidebar
+
+## [0.185.0] - 2022-08-23
+
+### Authors
+
+- Sankalp Sanand <sankalp@agnostiq.ai>
+- Co-authored-by: Alejandro Esquivel <ae@alejandro.ltd>
+- Venkat Bala <venkat@agnostiq.ai>
+
+### Added
+
+- Adding `load_tests` subdirectory to tests to facilitate execution of Covalent benchmarks during nightly runs
+- Added `locust` requirements to tests `requirements.txt`
+
+## [0.184.2] - 2022-08-23
+
+### Authors
+
+- Sankalp Sanand <sankalp@agnostiq.ai>
+- Co-authored-by: Alejandro Esquivel <ae@alejandro.ltd>
+
+### Fixed
+
+- Switched the `render_as_batch` flag in the alembic env context so that `ALTER` commands are supported in SQLite migrations.
+
+### Docs
+
+- Updated custom executor RTD to show a simpler example
+
+### Operations
+
+- pre-commit autoupdate
+
+## [0.184.1] - 2022-08-23
+
+### Authors
+
+- Alejandro Esquivel <ae@alejandro.ltd>
+- Venkat Bala <venkat@agnostiq.ai>
+- Co-authored-by: Scott Wyman Neagle <scott@agnostiq.ai>
+- Casey Jao <casey@agnostiq.ai>
+- Sankalp Sanand <sankalp@agnostiq.ai>
+
+### Fixed
+
+- Function's `__doc__` and `__name__` storage in dict/json for transportable object fixed.
+
+### Tests
+
+- Added unit test for the above fix.
+
+## [0.184.0] - 2022-08-22
+
+### Authors
+
+- Alejandro Esquivel <ae@alejandro.ltd>
+- Venkat Bala <venkat@agnostiq.ai>
+- Co-authored-by: Scott Wyman Neagle <scott@agnostiq.ai>
+- Casey Jao <casey@agnostiq.ai>
+
+### Changed
+
+- Electron metadata is serialized earlier during workflow construction
+  to reduce unexpected executor pip requirements.
+
+### Operations
+
+- Updating conditional logic for the different steps in `release` workflow
+- Dependabot update
+
+### Docs
+
+- Removed "How to synchronize lattices" section from RTD
+
+## [0.183.0] - 2022-08-18
+
+### Authors
+
+- Scott Wyman Neagle <scott@agnostiq.ai>
+- Venkat Bala <venkat@agnostiq.ai>
+
+### Added
+
+- Adding tests to update patch coverage for the `covalent logs` cli
+
+### Changed
+
+- Modify the `covalent logs` CLI handler to read logs line by line
+
+### Operations
+
+- Update release workflow
+- Adding a `wait` input for the Conda action
+
+## [0.182.2] - 2022-08-18
+
+### Authors
+
+- Scott Wyman Neagle <scott@agnostiq.ai>
+- Will Cunningham <wjcunningham7@users.noreply.github.com>
+- Alejandro Esquivel <ae@alejandro.ltd>
+- Co-authored-by: Will Cunningham <wjcunningham7@gmail.com>
+- Co-authored-by: Faiyaz Hasan <faiyaz@agnostiq.ai>
+
+### Fixed
+
+- CLI `service.py` tests to run without the server needing to be started.
+
+### Docs
+
+- Added `covalent db` cli command to API section of RTD
+
+### Docs
+
+- Fixed RTD downloads badge image to point to `covalent` rather than `cova`
+
+### Operations
+
+- Use conda skeleton action for build and upload
+
+### Docs
+
+- Updating WCI yaml with new file transfer protocols
+
+## [0.182.1] - 2022-08-17
+
+### Authors
+
+- Will Cunningham <wjcunningham7@users.noreply.github.com>
+- Venkat Bala <venkat@agnostiq.ai>
+- Co-authored-by: santoshkumarradha <santosh@agnostiq.ai>
+- Co-authored-by: pre-commit-ci[bot] <66853113+pre-commit-ci[bot]@users.noreply.github.com>
+- Co-authored-by: Santosh kumar <29346072+santoshkumarradha@users.noreply.github.com>
+- Co-authored-by: Scott Wyman Neagle <scott@agnostiq.ai>
+- Prasanna Venkatesh <54540812+Prasy12@users.noreply.github.com>
+- Co-authored-by: Will Cunningham <wjcunningham7@gmail.com>
+
+### Fixed
+
+- lattice.draw() fix on the GUI.
+
+## [0.182.0] - 2022-08-17
+
+### Authors
+
+- Will Cunningham <wjcunningham7@users.noreply.github.com>
+- Venkat Bala <venkat@agnostiq.ai>
+- Co-authored-by: santoshkumarradha <santosh@agnostiq.ai>
+- Co-authored-by: pre-commit-ci[bot] <66853113+pre-commit-ci[bot]@users.noreply.github.com>
+- Co-authored-by: Santosh kumar <29346072+santoshkumarradha@users.noreply.github.com>
+- Co-authored-by: Scott Wyman Neagle <scott@agnostiq.ai>
+
+### Added
+
+- Update RTD for `AWS Batch` executor
+- Removed `AWS Lambda` executor RTD from this branch in order to keep changes atomic
+
+### Changed
+
+- Synced with latest develop
+
+### Docs
+
+- Adding RTD for `AWS Braket` executor
+- Adding dropdown menu for the IAM policy
+- Delete RTD for other cloud executor to keep changes atomic
+- Renamed `executers` folder to `executors`
+
+### Docs
+
+- Updated short release notes
+
+## [0.181.0] - 2022-08-17
+
+### Authors
+
+- Alejandro Esquivel <ae@alejandro.ltd>
+- Will Cunningham <wjcunningham7@users.noreply.github.com>
+- Scott Wyman Neagle <scott@agnostiq.ai>
+- Venkat Bala <venkat@agnostiq.ai>
+- Co-authored-by: santoshkumarradha <santosh@agnostiq.ai>
+- Co-authored-by: pre-commit-ci[bot] <66853113+pre-commit-ci[bot]@users.noreply.github.com>
+- Co-authored-by: Santosh kumar <29346072+santoshkumarradha@users.noreply.github.com>
+- Co-authored-by: Will Cunningham <wjcunningham7@gmail.com>
+- Prasanna Venkatesh <54540812+Prasy12@users.noreply.github.com>
+- Co-authored-by: Kamalesh-suresh <kamalesh.suresh@psiog.com>
+- Co-authored-by: Manjunath PV <manjunath.poilath@psiog.com>
+- Co-authored-by: ArunPsiog <arun.mukesh@psiog.com>
+
+### Changed
+
+- Lazy loading mechanism on the GUI.
+
+### Fixed
+
+- Displaying electron executor and inputs information on the GUI.
+- Animated spinner for running statuses on the GUI.
+
+## Docs
+
+- Add `AWSLambdaExecutor` RTD
+- Update `api.rst` to include `cluster` CLI command option
+- Added version migration guide section in RTD
+- Update RTD for `AWS ECS` executor
+- Remove AWS Lambda and Batch RTDs to keep changes atomic
+- Adding dropdowns to IAM policy documents
+- Updated compatibility matrix
+- Updated pip, bash and callable deps how-to guides
+
+### Operations
+
+- NPM install on CentOS done explicitly
+- `-y` flag for `conda install`
+
+## [0.180.0] - 2022-08-16
+
+### Authors
+
+- Casey Jao <casey@agnostiq.ai>
+- Co-authored-by: Alejandro Esquivel <ae@alejandro.ltd>
+- Okechukwu Emmanuel Ochia <okechukwu@agnostiq.ai>
+- Scott Wyman Neagle <scott@agnostiq.ai>
+- Co-authored-by: pre-commit-ci[bot] <66853113+pre-commit-ci[bot]@users.noreply.github.com>
+- Co-authored-by: Will Cunningham <wjcunningham7@gmail.com>
+- Sankalp Sanand <sankalp@agnostiq.ai>
+
+### Removed
+
+- Removed `ct.wait.LONG` etc. constants from covalent's init
+
+### Changed
+
+- `wait` in `_get_result_from_dispatcher` will now use `_results_manager.wait.EXTREME` if `True` has been passed to it.
+
+### Operations
+
+- Prettierified release.yml
+- Cleaned up pre-commit-config.yml
+
+### Docs
+
+- Updated Bash Lepton tutorial to conform with the latest Lepton interface changes
+- Disabling how-to guide for executing an electron with a specified Conda environment.
+- Fixed "How To" for Python leptons
+
+## [0.179.0] - 2022-08-16
+
+### Authors
+
+### Changed
+
+- Changed terser package version on webapp yarn-lock file.
+
+## [0.178.0] - 2022-08-15
+
+### Authors
+
+- Will Cunningham <wjcunningham7@users.noreply.github.com>
+- Co-authored-by: Alejandro Esquivel <ae@alejandro.ltd>
+- Casey Jao <casey@agnostiq.ai>
+
+### Changed
+
+- Dispatch workflows as asyncio tasks on the FastAPI event loop instead of in separate threads
+
+### Fixed
+
+- Deconflict wait enum with `ct.wait` function; `wait` -> `WAIT`
+
+### Operations
+
+- Conda package is built and tested on a nightly schedule
+- Conda deployment step is added to `release.yml`
+- Install yarn and npm on Ubuntu whenever the webapp needs to be built
+
+## [0.177.0] - 2022-08-11
+
+### Authors
+
+- Scott Wyman Neagle <scott@agnostiq.ai>
+- Co-authored-by: Faiyaz Hasan <faiyaz@agnostiq.ai>
+- Casey Jao <casey@agnostiq.ai>
+- Venkat Bala <venkat@agnostiq.ai>
+- Co-authored-by: pre-commit-ci[bot] <66853113+pre-commit-ci[bot]@users.noreply.github.com>
+
+### Removed
+
+- `while True` in `app.get_result`
+
+### Changed
+
+- Flask route logic to return 503 when the result is not ready
+
+### Tests
+
+- results_manager tests
+
+### Operations
+
+- Fix conditional checks for `pre-release` and `stable` Covalent docker image builds
+
+## [0.176.0] - 2022-08-11
+
+### Authors
+
+- Scott Wyman Neagle <scott@agnostiq.ai>
+- Co-authored-by: Faiyaz Hasan <faiyaz@agnostiq.ai>
+- Casey Jao <casey@agnostiq.ai>
+
+### Operations
+
+- Update precommit yaml.
+
+### Removed
+
+- `Lattice.check_consumables()`, `_TransportGraph.get_topologically_sorted_graph()`
+
+### Operations
+
+- Trigger webapp build if `build==true`
+
+## [0.175.0] - 2022-08-11
+
+### Authors
+
+- Scott Wyman Neagle <scott@agnostiq.ai>
+- Co-authored-by: Faiyaz Hasan <faiyaz@agnostiq.ai>
+- Casey Jao <casey@agnostiq.ai>
+
+### Operations
+
+- Trigger Slack alert for failed tests on `workflow_run`
+
+## [0.174.0] - 2022-08-11
+
+### Authors
+
+- Casey Jao <casey@agnostiq.ai>
+- Alejandro Esquivel <ae@alejandro.ltd>
+
+### Changed
+
+- Changed return value for TransferFromRemote and TransferToRemote (download/upload) operations to be consistent and always return filepath tuples
+
+### Docs
+
+- Updated docs with File Transfer return value changes and `files` kwarg injections
+
+### Fixed
+
+- Fixed postprocessing workflows that return an electron with an incoming wait_for edge
+
+## [0.173.0] - 2022-08-10
+
+### Authors
+
+- Sankalp Sanand <sankalp@agnostiq.ai>
+
+### Added
+
+- `--hard` and `--yes` flags added to `covalent purge` for hard purging (also deletes the databse) and autoapproving respectively.
+
+### Changed
+
+- `covalent purge` now shows the user a prompt informing them what dirs and files will be deleted.
+- Improved shown messages in some commands.
+
+### Tests
+
+- Updated tests to reflect above changes.
+
+## [0.172.0] - 2022-08-10
+
+### Authors
+
+- Will Cunningham <wjcunningham7@users.noreply.github.com>
+- Prasanna Venkatesh <54540812+Prasy12@users.noreply.github.com>
+- Co-authored-by: pre-commit-ci[bot] <66853113+pre-commit-ci[bot]@users.noreply.github.com>
+- Co-authored-by: Aravind-psiog <100823292+Aravind-psiog@users.noreply.github.com>
+- Co-authored-by: ArunPsiog <arun.mukesh@psiog.com>
+- Co-authored-by: manjunath.poilath <manjunath.poilath@psiog.com>
+- Co-authored-by: Kamalesh-suresh <kamalesh.suresh@psiog.com>
+- Co-authored-by: Amalan Jenicious F <amalan.jenicious@psiog.com>
+- Co-authored-by: M Shrikanth <shrikanth.mohan@psiog.com>
+- Co-authored-by: Casey Jao <casey@agnostiq.ai>
+- Co-authored-by: Aravind-psiog <aravind.prabaharan@psiog.com>
+- Co-authored-by: Will Cunningham <wjcunningham7@gmail.com>
+- Co-authored-by: Alejandro Esquivel <ae@alejandro.ltd>
+
+### Changed
+
+- Covalent dispatcher flask web apis ported to FastAPI in `covalent_dispatcher/_service/app.py`
+- Unit tests written for Covalent dispatcher flask web apis ported to FastAPI in `covalent_dispatcher_tests/_service/app.test.py`
+- Web apis of `covalent_ui` refactored to adhere to v11 DB schema
+- Electron graph mini map has been moved next to controls on the GUI.
+- Lattice status and count of completed & total electrons has been moved to the top of the graph on the GUI.
+- Some of the Flask APIs earlier consumed by the GUI have been deprecated & removed from the code base.
+- APIs exposed by the web app back end have been re-factored to adhere to the new DB schema v10
+
+### Added
+
+- Added count of dispatches by status on the dispatch list section of the GUI.
+- APIs that the GUI consumes have been re-written using FastAPI. This includes re-factoring of older APIs and adding of new APIs.
+- Added COVALENT_SERVER_IFACE_ANY flag for uvicorn to start with 0.0.0.0
+
+### Docs
+
+- ReadTheDocs landing page has been improved
+
+## [0.171.0] - 2022-08-10
+
+### Authors
+
+- Casey Jao <casey@agnostiq.ai>
+- Co-authored-by: Scott Wyman Neagle <scott@agnostiq.ai>
+
+### Added
+
+- Added `covalent migrate_legacy_result_object` command to save pickled Result objects to the DataStore
+
+## [0.170.1] - 2022-08-09
+
+### Authors
+
+- Venkat Bala <venkat@agnostiq.ai>
+
+### Fixed
+
+- Remove `attr` import added inadvertently
+
+### Tests
+
+- Fix `start` cli test, update `set_config` call count
+
+## [0.170.0] - 2022-08-08
+
+### Authors
+
+- Venkat Bala <venkat@agnostiq.ai>
+- Co-authored-by: pre-commit-ci[bot] <66853113+pre-commit-ci[bot]@users.noreply.github.com>
+
+### Changed
+
+- Temporarily allow executor plugin variable name to be either in uppercase or lowercase
+
+## [0.169.0] - 2022-08-08
+
+### Authors
+
+- Venkat Bala <venkat@agnostiq.ai>
+- Co-authored-by: pre-commit-ci[bot] <66853113+pre-commit-ci[bot]@users.noreply.github.com>
+
+### Added
+
+- Adding a `covalent config` convenience CLI to quickly view retrive the covalent configuration
+
+## [0.168.0] - 2022-08-08
+
+### Authors
+
+- Venkat Bala <venkat@agnostiq.ai>
+- Co-authored-by: pre-commit-ci[bot] <66853113+pre-commit-ci[bot]@users.noreply.github.com>
+
+### Added
+
+- Adding `setup/teardown` methods as placeholders for any executor specific setup and teardown tasks
+
+## [0.167.0] - 2022-08-08
+
+### Authors
+
+- Poojith U Rao <106616820+poojithurao@users.noreply.github.com>
+- Co-authored-by: Venkat Bala <venkat@agnostiq.ai>
+- Co-authored-by: Faiyaz Hasan <faiyaz@agnostiq.ai>
+- Co-authored-by: pre-commit-ci[bot] <66853113+pre-commit-ci[bot]@users.noreply.github.com>
+- Co-authored-by: Alejandro Esquivel <ae@alejandro.ltd>
+
+### Added
+
+- S3 File transfer strategy
+
+### Fixed
+
+- Adding maximum number of retries and timeout parameter to the get result http call.
+
+## [0.166.0] - 2022-08-07
+
+### Authors
+
+- Venkat Bala <venkat@agnostiq.ai>
+
+### Tests
+
+- Update dask cli test to match Covalent Dask cluster configuration
+
+### Changed
+
+- Remove newline from log stream formatter for better log statment output
+- Jsonify covalent cluster cli outputs
+
+## [0.165.0] - 2022-08-06
+
+### Authors
+
+- Casey Jao <casey@agnostiq.ai>
+
+### Changed
+
+- Make `BaseExecutor` and `BaseAsyncExecutor` class siblings, not parent and child.
+
+### Operations
+
+- Only validate webapp if the webapp was built
+
+### Tests
+
+- Fixed randomly failing lattice json serialization test
+
+## [0.164.0] - 2022-08-05
+
+### Authors
+
+- Sankalp Sanand <sankalp@agnostiq.ai>
+- Faiyaz Hasan <faiyaz@agnostiq.ai>
+- Co-authored-by: pre-commit-ci[bot] <66853113+pre-commit-ci[bot]@users.noreply.github.com>
+- Co-authored-by: Venkat Bala <venkat@agnostiq.ai>
+- Co-authored-by: Will Cunningham <wjcunningham7@gmail.com>
+
+### Changed
+
+- Use `update_config` to modify dask configuration from the cluster process
+- Simplify `set_config` logic for dask configuration options on `covalent start`
+- Removed default values from click options for dask configuration related values
+
+### Added
+
+- Configured default dask configuration options in `defaults.py`
+
+### Fixed
+
+- Overwriting config address issue.
+
+### Tests
+
+- Moved misplaced functional/integration tests from the unit tests folder to their respective folders.
+- All of the unit tests now use test DB instead of hitting a live DB.
+- Updated `tests.yml` so that functional tests are run whenever tests get changed or github actions are changed.
+- Several broken tests were also fixed.
+
+## [0.163.0] - 2022-08-04
+
+### Authors
+
+- Alejandro Esquivel <ae@alejandro.ltd>
+- Co-authored-by: Casey Jao <casey@agnostiq.ai>
+- Will Cunningham <wjcunningham7@users.noreply.github.com>
+- Co-authored-by: Scott Wyman Neagle <scott@agnostiq.ai>
+
+### Added
+
+- Added `rsync` dependency in `Dockerfile`
+
+### Removed
+
+- `Makefile` which was previously improperly committed
+
+### Operations
+
+- Functional tests are run only on `develop`
+- `tests.yml` can be run manually provided a commit SHA
+- `tests.yml` uses a `build` filter to conditionally install and build Covalent if build files are modified
+- `docker.yml` is now only for dev work, and is manually triggered given an SHA
+- `release.yml` is enhanced to push stable and pre-release images to a public ECR repo
+
+## [0.162.0] - 2022-08-04
+
+### Authors
+
+- Alejandro Esquivel <ae@alejandro.ltd>
+- Co-authored-by: Casey Jao <casey@agnostiq.ai>
+
+### Changed
+
+- Updated Base executor to support non-unique `retval_key`s, particularly for use in File Transfer where we may have several CallDeps with the reserved `retval_key` of value `files`.
+
+## [0.161.2] - 2022-08-04
+
+### Authors
+
+- Alejandro Esquivel <ae@alejandro.ltd>
+- Co-authored-by: pre-commit-ci[bot] <66853113+pre-commit-ci[bot]@users.noreply.github.com>
+
+### Fixed
+
+- Updated `covalent db migrations` to overwrite `alembic.ini` `script_location` with absolute path to migrations folder
+- Updated `covalent db alembic [args]` command to use project root as `cwd` for alembic subprocess
+
+## [0.161.1] - 2022-08-03
+
+### Authors
+
+- Alejandro Esquivel <ae@alejandro.ltd>
+- Scott Wyman Neagle <scott@agnostiq.ai>
+- Co-authored-by: Faiyaz Hasan <faiyaz@agnostiq.ai>
+- Poojith U Rao <106616820+poojithurao@users.noreply.github.com>
+- Co-authored-by: Casey Jao <casey@agnostiq.ai>
+
+### Fixed
+
+- When a list was passed to an electron, the generated electron list
+  had metadata copied from the electron. This was resulting in
+  call_before and call_after functions being called by the electron
+  list as well. The metadata (apart from executor) is now set to
+  default values for the electron list.
+
+## [0.161.0] - 2022-08-03
+
+### Authors
+
+- Alejandro Esquivel <ae@alejandro.ltd>
+- Scott Wyman Neagle <scott@agnostiq.ai>
+- Co-authored-by: Faiyaz Hasan <faiyaz@agnostiq.ai>
+
+### Changed
+
+- Replaced `Session(DispatchDB()._get_data_store().engine)` with `workflow_db.session()`
+
+### Removed
+
+- `DevDataStore` class from `datastore.py`
+- workflows manager
+
+## [0.160.1] - 2022-08-02
+
+### Authors
+
+- Alejandro Esquivel <ae@alejandro.ltd>
+- Scott Wyman Neagle <scott@agnostiq.ai>
+
+### Fixed
+
+- `script_location` key not found issue when installing with pip (second attempt)
+
+### Docs
+
+- Remove migration guide reference from README
+
+### Operations
+
+- Explicitly check `release == true` in tests.yml
+
+## [0.160.0] - 2022-08-02
+
+### Authors
+
+- Casey Jao <casey@agnostiq.ai>
+- Co-authored-by: Faiyaz Hasan <faiyaz@agnostiq.ai>
+
+### Changed
+
+- `Executor.run()` now accepts a `task_metadata` dictionary. Current
+  keys consist of `dispatch_id` and `node_id`.
+
+## [0.159.0] - 2022-08-02
+
+### Authors
+
+- Casey Jao <casey@agnostiq.ai>
+- Co-authored-by: Faiyaz Hasan <faiyaz@agnostiq.ai>
+
+### Changed
+
+- Database schema has been updated to v11
+
+### Operations
+
+- `paths-filter` will only be run on PRs, i.e on workflow runs, the whole test suite will be run.
+- Removed retry action from running on `pytest` steps since they instead use `pytest` retries.
+- `codecov.yml` added to enable carry-forward flags
+- UI front-end is only built for pull requests when the source changes
+- Packaging is only validated on the `develop` branch
+
+## [0.158.0] - 2022-07-29
+
+### Authors
+
+- Okechukwu Emmanuel Ochia <okechukwu@agnostiq.ai>
+- Co-authored-by: Scott Wyman Neagle <scott@agnostiq.ai>
+- Will Cunningham <wjcunningham7@users.noreply.github.com>
+- Alejandro Esquivel <ae@alejandro.ltd>
+- Co-authored-by: pre-commit-ci[bot] <66853113+pre-commit-ci[bot]@users.noreply.github.com>
+- Casey Jao <casey@agnostiq.ai>
+- Co-authored-by: Faiyaz Hasan <faiyaz@agnostiq.ai>
+
+### Changed
+
+- Construct the result object in the dispatcher `entry_point.py` module in order to avoid the Missing Latticed Id error so frequently.
+- Update the sleep statement length to 0.1 seconds in the results.manager.
+
+## [0.157.1] - 2022-07-29
+
+### Authors
+
+- Okechukwu Emmanuel Ochia <okechukwu@agnostiq.ai>
+- Co-authored-by: Scott Wyman Neagle <scott@agnostiq.ai>
+- Will Cunningham <wjcunningham7@users.noreply.github.com>
+- Alejandro Esquivel <ae@alejandro.ltd>
+- Co-authored-by: pre-commit-ci[bot] <66853113+pre-commit-ci[bot]@users.noreply.github.com>
+- Casey Jao <casey@agnostiq.ai>
+
+### Fixed
+
+- Pass non-kwargs to electrons in the correct order during dispatch.
+
+## [0.157.0] - 2022-07-28
+
+### Authors
+
+- Okechukwu Emmanuel Ochia <okechukwu@agnostiq.ai>
+- Co-authored-by: Scott Wyman Neagle <scott@agnostiq.ai>
+- Will Cunningham <wjcunningham7@users.noreply.github.com>
+- Alejandro Esquivel <ae@alejandro.ltd>
+- Co-authored-by: pre-commit-ci[bot] <66853113+pre-commit-ci[bot]@users.noreply.github.com>
+- Casey Jao <casey@agnostiq.ai>
+
+### Changed
+
+- Expose a public `wait()` function compatible with both calling and dispatching lattices
+
+### Docs
+
+- Updated the RTD on `wait_for()` to use the static `wait()` function
+
+### Operations
+
+- pre-commit autoupdate
+
+### Docs
+
+- Changed the custom executor how-to to be shorter and more concise.
+- Re-structured the docs
+
+## [0.156.0] - 2022-07-27
+
+### Authors
+
+- Okechukwu Emmanuel Ochia <okechukwu@agnostiq.ai>
+- Co-authored-by: Scott Wyman Neagle <scott@agnostiq.ai>
+- Will Cunningham <wjcunningham7@users.noreply.github.com>
+- Alejandro Esquivel <ae@alejandro.ltd>
+- Co-authored-by: pre-commit-ci[bot] <66853113+pre-commit-ci[bot]@users.noreply.github.com>
+
+### Added
+
+- Bash decorator is introduced
+- Lepton commands can be specified as a list of strings rather than strings alone.
+
+## [0.155.1] - 2022-07-26
+
+### Authors
+
+- Okechukwu Emmanuel Ochia <okechukwu@agnostiq.ai>
+- Co-authored-by: Scott Wyman Neagle <scott@agnostiq.ai>
+- Will Cunningham <wjcunningham7@users.noreply.github.com>
+- Alejandro Esquivel <ae@alejandro.ltd>
+- Co-authored-by: pre-commit-ci[bot] <66853113+pre-commit-ci[bot]@users.noreply.github.com>
+
+### Fixed
+
+- `script_location` key not found issue when running alembic programatically
+
+### Operations
+
+- Fixed syntax errors in `stale.yml` and in `hotfix.yml`
+- `docker.yml` triggered after version bump in `develop` instead of before
+- Enhanced `tests.yml` to upload coverage reports by domain
+
+## [0.155.0] - 2022-07-26
+
+### Authors
+
+- Alejandro Esquivel <ae@alejandro.ltd>
+
+### Added
+
+- Exposing `alembic {args}` cli commands through: `covalent db alembic {args}`
+
+## [0.154.0] - 2022-07-25
+
+### Authors
+
+- Casey Jao <casey@agnostiq.ai>
+- Co-authored-by: Venkat Bala <venkat@agnostiq.ai>
+- Alejandro Esquivel <ae@alejandro.ltd>
+
+### Added
+
+- Added methods to programatically fetch information from Alembic without needing subprocess
+
+## [0.153.1] - 2022-07-25
+
+### Authors
+
+- Casey Jao <casey@agnostiq.ai>
+- Co-authored-by: Venkat Bala <venkat@agnostiq.ai>
+
+### Fixed
+
+- Stdout and stderr are now captured when using the dask executor.
+
+### Tests
+
+- Fixed Dask cluster CLI tests
+
+## [0.153.0] - 2022-07-25
+
+### Authors
+
+- Faiyaz Hasan <faiyaz@agnostiq.ai>
+
+### Added
+
+- Helper function to load and save files corresponding to the DB filenames.
+
+### Changed
+
+- Files with .txt, .log extensions are stored as strings.
+- Get result web request timeout to 2 seconds.
+
+## [0.152.0] - 2022-07-25
+
+### Authors
+
+- Faiyaz Hasan <faiyaz@agnostiq.ai>
+- Co-authored-by: Scott Wyman Neagle <scott@agnostiq.ai>
+
+### Changed
+
+- Pass default DataStore object to node value retrieval method in the Results object.
+
+## [0.151.1] - 2022-07-22
+
+### Authors
+
+- Faiyaz Hasan <faiyaz@agnostiq.ai>
+- Co-authored-by: Scott Wyman Neagle <scott@agnostiq.ai>
+
+### Fixed
+
+- Adding maximum number of retries and timeout parameter to the get result http call.
+- Disabling result_webhook for now.
+
+## [0.151.0] - 2022-07-22
+
+### Authors
+
+- Scott Wyman Neagle <scott@agnostiq.ai>
+- Co-authored-by: Will Cunningham <wjcunningham7@gmail.com>
+- Sankalp Sanand <sankalp@agnostiq.ai>
+
+### Added
+
+- `BaseAsyncExecutor` has been added which can be inherited by new async-aware executors.
+
+### Changed
+
+- Since tasks were basically submitting the functions to a Dask cluster by default, they have been converted into asyncio `Tasks` instead which support a far larger number of concurrent tasks than previously used `ThreadPool`.
+
+- `tasks_pool` will still be used to schedule tasks which use non-async executors.
+
+- Executor's `executor` will now receive a callable instead of a serialized function. This allows deserializing the function where it is going to be executed while providing a simplified `execute` at the same time.
+
+- `uvloop` is being used instead of the default event loop of `asyncio` for better performance.
+
+- Tests have also been updated to reflect above changes.
+
+### Operations
+
+- Made Santosh the sole owner of `/docs`
+
+## [0.150.0] - 2022-07-22
+
+### Authors
+
+- Faiyaz Hasan <faiyaz@agnostiq.ai>
+
+### Added
+
+- Initialize database tables when the covalent server is started.
+
+## [0.149.0] - 2022-07-21
+
+### Authors
+
+- Scott Wyman Neagle <scott@agnostiq.ai>
+- Co-authored-by: Venkat Bala <venkat@agnostiq.ai>
+
+### Removed
+
+- `result.save()`
+- `result._write_dispatch_to_python_file()`
+
+## [0.148.0] - 2022-07-21
+
+### Authors
+
+- Alejandro Esquivel <ae@alejandro.ltd>
+
+### Changed
+
+- Changed DataStore default db path to correspond to dispatch db config path
+
+### Operations
+
+- Added workflow to stale and close pull requests
+
+### Docs
+
+- Fixed `get_metadata` calls in examples to remove `results_dir` argument
+- Removed YouTube video temporarily
+
+## [0.147.0] - 2022-07-21
+
+### Authors
+
+- Casey Jao <casey@agnostiq.ai>
+
+### Changed
+
+- Simplified interface for custom executors. All the boilerplate has
+  been moved to `BaseExecutor`.
+
+## [0.146.0] - 2022-07-20
+
+### Authors
+
+- Casey Jao <casey@agnostiq.ai>
+- Co-authored-by: Venkat Bala <venkat@agnostiq.ai>
+- Faiyaz Hasan <faiyaz@agnostiq.ai>
+
+### Added
+
+- Ensure that transportable objects are rendered correctly when printing the result object.
+
+### Tests
+
+- Check that user data is not unpickled by the Covalent server process
+
+## [0.145.0] - 2022-07-20
+
+### Authors
+
+- Scott Wyman Neagle <scott@agnostiq.ai>
+- Co-authored-by: Venkat Bala <venkat@agnostiq.ai>
+- Co-authored-by: Faiyaz Hasan <faiyaz@agnostiq.ai>
+
+### Removed
+
+- `entry_point.get_result()`
+
+### Changed
+
+- get_result to query an HTTP endpoint instead of a DB session
+
+## [0.144.0] - 2022-07-20
+
+### Authors
+
+- Will Cunningham <wjcunningham7@users.noreply.github.com>
+- Co-authored-by: Scott Wyman Neagle <scott@agnostiq.ai>
+- Alejandro Esquivel <ae@alejandro.ltd>
+
+### Added
+
+- Set up alembic migrations & added migration guide (`alembic/README.md`)
+
+## [0.143.0] - 2022-07-19
+
+### Authors
+
+- Will Cunningham <wjcunningham7@users.noreply.github.com>
+- Co-authored-by: Scott Wyman Neagle <scott@agnostiq.ai>
+
+### Changed
+
+- Installation will fail if `cova` is installed while trying to install `covalent`.
+
+## [0.142.0] - 2022-07-19
+
+### Authors
+
+- Poojith U Rao <106616820+poojithurao@users.noreply.github.com>
+- Co-authored-by: Will Cunningham <wjcunningham7@gmail.com>
+- Anna Hughes <annagwen42@gmail.com>
+- Co-authored-by: Poojith <poojith@agnostiq.ai>
+- Co-authored-by: Scott Wyman Neagle <scott@agnostiq.ai>
+- Casey Jao <casey@agnostiq.ai>
+- Co-authored-by: Venkat Bala <venkat@agnostiq.ai>
+- Co-authored-by: pre-commit-ci[bot] <66853113+pre-commit-ci[bot]@users.noreply.github.com>
+- Faiyaz Hasan <faiyaz@agnostiq.ai>
+
+### Added
+
+- `electron_num`, `completed_electron_num` fields to the Lattice table.
+
+## [0.141.0] - 2022-07-19
+
+### Authors
+
+- Poojith U Rao <106616820+poojithurao@users.noreply.github.com>
+- Co-authored-by: Will Cunningham <wjcunningham7@gmail.com>
+- Anna Hughes <annagwen42@gmail.com>
+- Co-authored-by: Poojith <poojith@agnostiq.ai>
+- Co-authored-by: Scott Wyman Neagle <scott@agnostiq.ai>
+- Casey Jao <casey@agnostiq.ai>
+- Co-authored-by: Venkat Bala <venkat@agnostiq.ai>
+- Co-authored-by: pre-commit-ci[bot] <66853113+pre-commit-ci[bot]@users.noreply.github.com>
+
+### Changed
+
+- Deprecate topological sort in favor of inspect in-degree of nodes until they are zero before dispatching task
+- Use deepcopy to generate a copy of the metadata dictionary before saving result object to the database
+
+### Docs
+
+- Adding incomplete pennylane kernel tutorial
+- Adding quantum ensemble tutorial
+
+## [0.140.0] - 2022-07-19
+
+### Authors
+
+- Faiyaz Hasan <faiyaz@agnostiq.ai>
+- Co-authored-by: Venkat Bala <venkat@agnostiq.ai>
+
+### Added
+
+- Fields `deps_filename`, `call_before_filename` and `call_after_filename` to the `Electron` table.
+- Re-write the deps / call before and after file contents when inserting / updating electron record in the database.
+
+### Changed
+
+- Modify the test and implementation logic of inserting the electron record with these new fields.
+- Field `key` to `key_filename` in `Electron` table.
+
+## [0.139.1] - 2022-07-19
+
+### Authors
+
+- Divyanshu Singh <55018955+divshacker@users.noreply.github.com>
+- Co-authored-by: Scott Wyman Neagle <wymnea@protonmail.com>
+- Co-authored-by: Scott Wyman Neagle <scott@agnostiq.ai>
+- Co-authored-by: Will Cunningham <wjcunningham7@users.noreply.github.com>
+
+### Fixed
+
+- Fixes Reverse IP problem. All References to `0.0.0.0` are changed to `localhost` . More details can be found [here](https://github.com/AgnostiqHQ/covalent/issues/202)
+
+## [0.139.0] - 2022-07-19
+
+### Authors
+
+- Venkat Bala <venkat@agnostiq.ai>
+- Co-authored-by: Scott Wyman Neagle <scott@agnostiq.ai>
+- Faiyaz Hasan <faiyaz@agnostiq.ai>
+- Co-authored-by: Will Cunningham <wjcunningham7@gmail.com>
+
+### Added
+
+- Columns `is_active` in the lattice, eLectron and Electron dependency tables.
+
+### Docs
+
+- Adding a RTD tutorial/steps on creating a custom executor
+
+## [0.138.0] - 2022-07-19
+
+### Authors
+
+- Anna Hughes <annagwen42@gmail.com>
+- Co-authored-by: Will Cunningham <wjcunningham7@gmail.com>
+- Will Cunningham <wjcunningham7@users.noreply.github.com>
+- Co-authored-by: Venkat Bala <venkat@agnostiq.ai>
+
+### Added
+
+- Docker build workflow
+
+### Changed
+
+- Dockerfile uses multi-stage build
+
+### Docs
+
+- New tutorial demonstrating how to solve the MaxCut Problem with QAOA and Covalent
+
+## [0.137.0] - 2022-07-19
+
+### Authors
+
+- Prasanna Venkatesh <54540812+Prasy12@users.noreply.github.com>
+- Co-authored-by: Alejandro Esquivel <ae@alejandro.ltd>
+
+### Added
+
+- Ability to hide/show labels on the graph
+- Graph layout with elk configurations
+
+### Changed
+
+- Changed API socket calls interval for graph optimization.
+
+### Tests
+
+- Disabled several dask functional tests
+
+## [0.136.0] - 2022-07-18
+
+### Authors
+
+- Scott Wyman Neagle <scott@agnostiq.ai>
+- Co-authored-by: Faiyaz Hasan <faiyaz@agnostiq.ai>
+
+### Changed
+
+- Result.save() has been deprecated in favor of Result.persist() and querying the database directly.
+
+## [0.135.0] - 2022-07-18
+
+### Authors
+
+- Casey Jao <casey@agnostiq.ai>
+- Co-authored-by: Scott Wyman Neagle <scott@agnostiq.ai>
+- Co-authored-by: Alejandro Esquivel <ae@alejandro.ltd>
+
+### Operations
+
+- Psiog is only codeowner of js files
+- Fix in changelog action to handle null author when a bot is committing
+
+### Added
+
+- Support injecting return values of calldeps into electrons during workflow execution
+
+## [0.134.0] - 2022-07-15
+
+### Authors
+
+- Casey Jao <casey@agnostiq.ai>
+- Co-authored-by: Scott Wyman Neagle <scott@agnostiq.ai>
+
+### Changed
+
+- Covalent server can now process workflows without having their deps installed
+
+## [0.133.0] - 2022-07-15
+
+### Authors
+
+- Will Cunningham <wjcunningham7@users.noreply.github.com>
+
+### Removed
+
+- Removed the deprecated function `draw_inline` as well as the `matplotlib` dependency.
+
+### Operations
+
+- Fixing the retry block for tests
+
+## [0.132.0] - 2022-07-14
+
+### Authors
+
+- Will Cunningham <wjcunningham7@users.noreply.github.com>
+
+### Added
+
+- Bash lepton support reintroduced with some UX modifications to the Lepton class. Leptons which use scripting languages can be specified as either (1) a command run in the shell/console or (2) a call to a function in a library/script. Leptons which use compiled languages must specify a library and a function name.
+- The keyword argument `display_name` can be used to override the name appearing in the UI. Particularly useful when the lepton is a command.
+- All arguments except for language are now keyword arguments.
+- Keyword arguments passed to a Bash lepton are understood to define environment variables within the shell.
+- Non-keyword arguments fill in `$1`, `$2`, etc.
+- Named outputs enumerate variables within the shell which will be returned to the user. These can be either `Lepton.OUTPUT` or `Lepton.INPUT_OUTPUT` types.
+
+### Added
+
+- New fields to the decomposed result object Database:
+
+## [0.131.0] - 2022-07-13
+
+### Authors
+
+- Sankalp Sanand <sankalp@agnostiq.ai>
+- Co-authored-by: Venkat Bala <venkat@agnostiq.ai>
+
+### Fixed
+
+- `covalent --version` now looks for `covalent` metadata instead of `cova`
+
+### Tests
+
+- Updated the cli test to include whether the correct version number is shown when `covalent --version` is run
+
+### Added
+
+- Method to write electron id corresponding to sublattices in `execution.py` when running `_run_task`.
+
+## [0.130.0] - 2022-07-12
+
+### Authors
+
+- Venkat Bala <venkat@agnostiq.ai>
+- Co-authored-by: Scott Wyman Neagle <scott@agnostiq.ai>
+
+### Changed
+
+- Ignoring tests for `cancel_dispatch` and `construct_bash`
+- Create a dummy requirements.txt file for pip deps tests
+- Fix version of `Werkzeug` package to avoid running into ValueError (unexpected kwarg `as_tuple`)
+- Update `customization` how to test by specifying the section header `sdk`
+
+## [0.129.0] - 2022-07-12
+
+### Authors
+
+- Sankalp Sanand <sankalp@agnostiq.ai>
+- Co-authored-by: Alejandro Esquivel <ae@alejandro.ltd>
+
+### Added
+
+- Support for `wait_for` type edges when two electrons are connected by their execution side effects instead of output-input relation.
+
+### Changed
+
+- `active_lattice.electron_outputs` now contains the node ids as well for the electron which is being post processed.
+
+## [0.128.1] - 2022-07-12
+
+### Authors
+
+- Faiyaz Hasan <faiyaz@agnostiq.ai>
+
+### Fixed
+
+- `Result.persist` test in `result_test.py`.
+- Electron dependency `arg_index` is changed back to Nullable.
+
+## [0.128.0] - 2022-07-12
+
+### Authors
+
+- Okechukwu Emmanuel Ochia <okechukwu@agnostiq.ai>
+- Co-authored-by: Casey Jao <casey@agnostiq.ai>
+- Co-authored-by: Alejandro Esquivel <ae@alejandro.ltd>
+- Co-authored-by: pre-commit-ci[bot] <66853113+pre-commit-ci[bot]@users.noreply.github.com>
+
+### Added
+
+- File transfer support for leptons
+
+## [0.127.0] - 2022-07-11
+
+### Authors
+
+- Scott Wyman Neagle <scott@agnostiq.ai>
+- Co-authored-by: Faiyaz Hasan <faiyaz@agnostiq.ai>
+- Co-authored-by: Venkat Bala <venkat@agnostiq.ai>
+
+### Added
+
+- When saving to DB, also persist to the new DB if running in develop mode
+
+### Tests
+
+- Flask app route tests
+
+## [0.126.0] - 2022-07-11
+
+### Authors
+
+- Will Cunningham <wjcunningham7@users.noreply.github.com>
+- Alejandro Esquivel <ae@alejandro.ltd>
+- Co-authored-by: pre-commit-ci[bot] <66853113+pre-commit-ci[bot]@users.noreply.github.com>
+- Co-authored-by: Sankalp Sanand <sankalp@agnostiq.ai>
+
+### Added
+
+- Added Folder class
+- Added internal call before/after deps to execute File Transfer operations pre/post electron execution.
+
+### Operations
+
+- Enhanced hotfix action to create branches from existing commits
+
+## [0.125.0] - 2022-07-09
+
+### Authors
+
+- Okechukwu Emmanuel Ochia <okechukwu@agnostiq.ai>
+- Co-authored-by: pre-commit-ci[bot] <66853113+pre-commit-ci[bot]@users.noreply.github.com>
+- Co-authored-by: Alejandro Esquivel <ae@alejandro.ltd>
+- Venkat Bala <venkat@agnostiq.ai>
+- Co-authored-by: Okechukwu Ochia <emmirald@gmail.com>
+- Co-authored-by: Scott Wyman Neagle <scott@agnostiq.ai>
+
+### Added
+
+- Dask Cluster CLI functional/unit tests
+
+### Docs
+
+- Updated RTD concepts, how-to-guides, and api docs with electron dependencies.
+
+### Operations
+
+- Separate out running tests and uploading coverage report to circumvent bug in
+  retry action
+
+## [0.124.0] - 2022-07-07
+
+### Authors
+
+- Will Cunningham <wjcunningham7@users.noreply.github.com>
+- Co-authored-by: Scott Wyman Neagle <scott@agnostiq.ai>
+- Faiyaz Hasan <faiyaz@agnostiq.ai>
+
+### Added
+
+- `Result.persist` method in `covalent/_results_manager/result.py`.
+
+### Operations
+
+- Package pre-releases go to `covalent` instead of `cova` on PyPI.
+
+## [0.123.0] - 2022-07-07
+
+### Authors
+
+- Scott Wyman Neagle <scott@agnostiq.ai>
+- Co-authored-by: Faiyaz Hasan <faiyaz@agnostiq.ai>
+- Will Cunningham <wjcunningham7@users.noreply.github.com>
+- Alejandro Esquivel <ae@alejandro.ltd>
+- Co-authored-by: pre-commit-ci[bot] <66853113+pre-commit-ci[bot]@users.noreply.github.com>
+
+### Added
+
+- Added Folder class
+- Added internal call before/after deps to execute File Transfer operations pre/post electron execution.
+
+### Operations
+
+- `codeql.yml` and `condabuild.yml` run nightly instead of on every PR.
+- Style fixes in changelog
+
+## [0.122.1] - 2022-07-06
+
+### Authors
+
+Will Cunningham <wjcunningham7@users.noreply.github.com>
+Co-authored-by: Scott Wyman Neagle <scott@agnostiq.ai>
+
+### Operations
+
+- Added license scanner action
+- Pre-commit autoupdate
+
+### Tests
+
+- Tests for running workflows with more than one iteration
+
+### Fixed
+
+- Attribute error caused by attempts to retrieve the name from the node function when the node function is set to None
+
+## [0.122.0] - 2022-07-04
+
+### Authors
+
+Faiyaz Hasan <faiyaz@agnostiq.ai>
+Co-authored-by: pre-commit-ci[bot] <66853113+pre-commit-ci[bot]@users.noreply.github.com>
+
+### Added
+
+- `covalent/_results_manager/write_result_to_db.py` module and methods to insert / update data in the DB.
+- `tests/covalent_tests/results_manager_tests/write_result_to_db_test.py` containing the unit tests for corresponding functions.
+
+### Changed
+
+- Electron `type` column to a string type rather than an `ElectronType` in DB models.
+- Primary keys from `BigInteger` to `Integer` in DB models.
+
+## [0.121.0] - 2022-07-04
+
+### Authors
+
+Will Cunningham <wjcunningham7@users.noreply.github.com>
+Co-authored-by: Alejandro Esquivel <ae@alejandro.ltd>
+Co-authored-by: pre-commit-ci[bot] <66853113+pre-commit-ci[bot]@users.noreply.github.com>
+
+### Removed
+
+- Unused requirements `gunicorn` and `eventlet` in `requirements.txt` as well as `dask` in `tests/requirements.txt`, since it is already included in the core requirements.
+
+### Docs
+
+- Updated the compatibility matrix in the docs.
+
+## [0.120.0] - 2022-07-04
+
+### Authors
+
+Okechukwu Emmanuel Ochia <okechukwu@agnostiq.ai>
+Co-authored-by: Venkat Bala <venkat@agnostiq.ai>
+Co-authored-by: pre-commit-ci[bot] <66853113+pre-commit-ci[bot]@users.noreply.github.com>
+Co-authored-by: Scott Wyman Neagle <scott@agnostiq.ai>
+
+### Added
+
+- Adding `cluster` CLI options to facilitate interacting with the backend Dask cluster
+- Adding options to `covalent start` to enable specifying number of workers, memory limit and threads per worker at cluster startup
+
+### Changed
+
+- Update `DaskAdminWorker` docstring with better explanation
+
+## [0.119.1] - 2022-07-04
+
+### Authors
+
+Scott Wyman Neagle <scott@agnostiq.ai>
+Casey Jao <casey@agnostiq.ai>
+
+### Fixed
+
+- `covalent status` checks if the server process is still alive.
+
+### Operations
+
+- Updates to changelog logic to handle multiple authors
+
+## [0.119.0] - 2022-07-03
+
+### Authors
+
+@cjao
+
+### Added
+
+- Introduce support for pip dependencies
+
+## [0.118.0] - 2022-07-02
+
+### Authors
+
+@AlejandroEsquivel
+
+### Added
+
+- Introduced File, FileTransfer, and FileTransferStrategy classes to support various File Transfer use cases prior/post electron execution
+
+## [0.117.0] - 2022-07-02
+
+### Authors
+
+@Emmanuel289
+
+### Added
+
+- Included retry action in 'tests.yaml' workflow.
+
+## [0.116.0] - 2022-06-29
+
+### Authors
+
+@Prasy12
+
+### Changed
+
+- Changed API socket calls interval for graph optimization.
+
+### Added
+
+- Ability to change to different layouts from the GUI.
+
+## [0.115.0] - 2022-06-28
+
+### Authors
+
+@cjao
+
+### Added
+
+- Introduce support for `call_before`, `call_after`, and bash dependencies
+
+### Operations
+
+- Unit tests performed on Python 3.10 on Ubuntu and MacOS images as well as 3.9 on MacOS
+- Updated codeowners so that AQ Engineers doesn't own this CHANGELOG
+- pre-commit autoupdate
+
+## [0.114.0] - 2022-06-23
+
+### Authors
+
+@dependabot[bot]
+
+### Changed
+
+- Changed eventsource version on webapp yarn-lock file.
+
+### Operations
+
+- Added Github push changelog workflow to append commiters username
+- Reusable JavaScript action to parse changelog and update version
+
+## [0.113.0] - 2022-06-21
+
+### Added
+
+- Introduce new db models and object store backends
+
+### Operations
+
+- Syntax fix in hotfix.yml
+
+### Docs
+
+- Added new tutorial: Linear and convolutional autoencoders
+
+## [0.112.0] - 2022-06-20
+
+### Changed
+
+- Changed async version on webapp package-lock file.
+
+## [0.111.0] - 2022-06-20
+
+### Changed
+
+- Changed eventsource version on webapp package-lock file.
+
+### Docs
+
+- Added new tutorial: Covalentified version of the Pennylane Variational Classifier tutorial.
+
+## [0.110.3] - 2022-06-17
+
+### Fixed
+
+- Fix error when parsing electron positional arguments in workflows
+
+### Docs
+
+- Remove hardcoding version info in README.md
+
+## [0.110.2] - 2022-06-10
+
+### Docs
+
+- Fix MNIST tutorial
+- Fix Quantum Gravity tutorial
+- Update RTD with migration guide compatible with latest release
+- Convert all references to `covalent start` from Jupyter notebooks to markdown statements
+- Update release notes summary in README.md
+- Fixed display issues with figure (in dark mode) and bullet points in tutorials
+
+### Operations
+
+- Added a retry block to the webapp build step in `tests.yml`
+
+## [0.110.1] - 2022-06-10
+
+### Fixed
+
+- Configure dask to not use daemonic processes when creating a cluster
+
+### Operations
+
+- Sync the VERSION file within `covalent` directory to match the root level VERSION
+- Manually patch `covalent/VERSION`
+
+## [0.110.0] - 2022-06-10
+
+### Changed
+
+- Web GUI list size and status label colors changed.
+- Web GUI graph running icon changed to non-static icon.
+
+### Docs
+
+- Removed references to the Dask executor in RTD as they are no longer needed.
+
+## [0.109.1] - 2022-06-10
+
+### Fixed
+
+- `covalent --version` now works for PyPI releases
+
+## [0.109.0] - 2022-06-10
+
+### Docs
+
+- Update CLI help statements
+
+### Added
+
+- Add CLI functionality to start covalent with/without Dask
+- Add CLI support to parse `covalent_ui.log` file
+
+### Operations
+
+- Updating codeowners to establish engineering & psiog ownership
+
+### Docs
+
+- Added new tutorial: Training quantum embedding kernels for classification.
+
+## [0.108.0] - 2022-06-08
+
+### Added
+
+- WCI yaml file
+
+### Docs
+
+- Add pandoc installation updates to contributing guide
+
+## [0.107.0] - 2022-06-07
+
+### Changed
+
+- Skipping stdout/stderr redirection tests until implemented in Dask parent process
+
+### Added
+
+- Simplifed starting the dask cluster using `multiprocessing`
+- Added `bokeh==2.4.3` to requirements.txt to enable view Dask dashboard
+
+### Fixed
+
+- Changelog-reminder action now works for PRs from forks.
+
+## [0.106.2] - 2022-06-06
+
+### Fixed
+
+- Specifying the version for package `furo` to `2022.4.7` to prevent breaking doc builds
+
+### Docs
+
+- Added new tutorial: Using Covalent with PennyLane for hybrid computation.
+
+## [0.106.1] - 2022-06-01
+
+### Fixed
+
+- Changelog-reminder action now works for PRs from forks
+
+### Docs
+
+- Removed references to microservices in RTD
+- Updated README.md.
+- Changed `ct.electron` to `ct.lattice(executor=dask_executor)` in MNIST classifier tutorial
+
+## [0.106.0] - 2022-05-26
+
+### Changed
+
+- Visual theme for Webapp GUI changed in accordance to new theme
+- Fonts, colors, icons have been updated
+
+## [0.105.0] - 2022-05-25
+
+### Added
+
+- Add a pre-commit hook for `detect-secrets`.
+- Updated the actions in accordance with the migration done in the previous version.
+
+## [0.104.0] - 2022-05-23
+
+### Changed
+
+- Services have been moved to a different codebase. This repo is now hosting the Covalent SDK, local dispatcher backend, Covalent web GUI, and documentation. Version is bumped to `0.104.0` in order to avoid conflicts.
+- Update tests to match the current dispatcher api
+- Skip testing dask executor until dask executor plugin is made public
+- Using 2 thread pools to manage multiple workflows better and the other one for executing electrons in parallel.
+
+### Fixed
+
+- Add psutil and PyYAML to requirements.txt
+- Passing the same Electron to multiple inputs of an Electron now works. UI fix pending.
+- Dask from `requirements.txt`.
+
+### Removed
+
+- Asyncio usage for electron level concurrency.
+- References to dask
+
+### Added
+
+- Functional test added for dask executor with the cluster running locally.
+- Scalability tests for different workflows and workflow sizes under `tests/stress_tests/scripts`
+- Add sample performance testing workflows under `tests/stress_tests`
+- Add pipelines to continuously run the tutorial notebooks
+- Create notebook with tasks from RTD
+
+## [0.32.3] - 2022-03-16
+
+### Fixed
+
+- Fix missing UI graph edges between parameters and electrons in certain cases.
+- Fix UI crashes in cases where legacy localStorage state was being loaded.
+
+## [0.32.2] - 2022-03-16
+
+### Added
+
+- Images for graphs generated in tutorials and how-tos.
+- Note for quantum gravity tutorial to tell users that `tensorflow` doesn't work on M1 Macs.
+- `Known Issues` added to `README.md`
+
+### Fixed
+
+- `draw` function usage in tutorials and how-tos now reflects the UI images generated instead of using graphviz.
+- Images now render properly in RTD of how-tos.
+
+### Changed
+
+- Reran all the tutorials that could run, generating the outputs again.
+
+## [0.32.1] - 2022-03-15
+
+### Fixed
+
+- CLI now starts server directly in the subprocess instead of as a daemon
+- Logs are provided as pipes to Popen instead of using a shell redirect
+- Restart behavior fixed
+- Default port in `covalent_ui/app.py` uses the config manager
+
+### Removed
+
+- `_graceful_restart` function no longer needed without gunicorn
+
+## [0.32.0] - 2022-03-11
+
+### Added
+
+- Dispatcher microservice API endpoint to dispatch and update workflow.
+- Added get runnable task endpoint.
+
+## [0.31.0] - 2022-03-11
+
+### Added
+
+- Runner component's main functionality to run a set of tasks, cancel a task, and get a task's status added to its api.
+
+## [0.30.5] - 2022-03-11
+
+### Updated
+
+- Updated Workflow endpoints & API spec to support upload & download of result objects as pickle files
+
+## [0.30.4] - 2022-03-11
+
+### Fixed
+
+- When executing a task on an alternate Conda environment, Covalent no longer has to be installed on that environment. Previously, a Covalent object (the execution function as a TransportableObject) was passed to the environment. Now it is deserialized to a "normal" Python function, which is passed to the alternate Conda environment.
+
+## [0.30.3] - 2022-03-11
+
+### Fixed
+
+- Fixed the order of output storage in `post_process` which should have been the order in which the electron functions are called instead of being the order in which they are executed. This fixes the order in which the replacement of function calls with their output happens, which further fixes any discrepencies in the results obtained by the user.
+
+- Fixed the `post_process` test to check the order as well.
+
+## [0.30.2] - 2022-03-11
+
+### Changed
+
+- Updated eventlet to 0.31.0
+
+## [0.30.1] - 2022-03-10
+
+### Fixed
+
+- Eliminate unhandled exception in Covalent UI backend when calling fetch_result.
+
+## [0.30.0] - 2022-03-09
+
+### Added
+
+- Skeleton code for writing the different services corresponding to each component in the open source refactor.
+- OpenAPI specifications for each of the services.
+
+## [0.29.3] - 2022-03-09
+
+### Fixed
+
+- Covalent UI is built in the Dockerfile, the setup file, the pypi workflow, the tests workflow, and the conda build script.
+
+## [0.29.2] - 2022-03-09
+
+### Added
+
+- Defaults defined in executor plugins are read and used to update the in-memory config, as well as the user config file. But only if the parameter in question wasn't already defined.
+
+### Changed
+
+- Input parameter names and docstrings in \_shared_files.config.update_config were changed for clarity.
+
+## [0.29.1] - 2022-03-07
+
+### Changed
+
+- Updated fail-fast strategy to run all tests.
+
+## [0.29.0] - 2022-03-07
+
+### Added
+
+- DispatchDB for storing dispatched results
+
+### Changed
+
+- UI loads dispatches from DispatchDB instead of browser local storage
+
+## [0.28.3] - 2022-03-03
+
+### Fixed
+
+Installed executor plugins don't have to be referred to by their full module name. Eg, use "custom_executor", instead of "covalent_custom_plugin.custom_executor".
+
+## [0.28.2] - 2022-03-03
+
+### Added
+
+- A brief overview of the tutorial structure in the MNIST classification tutorial.
+
+## [0.28.1] - 2022-03-02
+
+### Added
+
+- Conda installation is only supported for Linux in the `Getting Started` guide.
+- MNIST classifier tutorial.
+
+### Removed
+
+- Removed handling of default values of function parameters in `get_named_params` in `covalent/_shared_files/utils.py`. So, it is actually being handled by not being handled since now `named_args` and `named_kwargs` will only contain parameters that were passed during the function call and not all of them.
+
+## [0.28.0] - 2022-03-02
+
+### Added
+
+- Lepton support, including for Python modules and C libraries
+- How-to guides showing how to use leptons for each of these
+
+## [0.27.6] - 2022-03-01
+
+### Added
+
+- Added feature development basic steps in CONTRIBUTING.md.
+- Added section on locally building RTD (read the docs) in the contributing guide.
+
+## [0.27.5] - 2022-03-01
+
+### Fixed
+
+- Missing UI input data after backend change - needed to be derived from graph for electrons, lattice inputs fixed on server-side, combining name and positional args
+- Broken UI graph due to variable->edge_name renaming
+- Missing UI executor data after server-side renaming
+
+## [0.27.4] - 2022-02-28
+
+### Fixed
+
+- Path used in `covalent/executor/__init__.py` for executor plugin modules needed updating to `covalent/executor/executor_plugins`
+
+### Removed
+
+- Disabled workflow cancellation test due to inconsistent outcomes. Test will be re-enabled after cancellation mechanisms are investigated further.
+
+## [0.27.3] - 2022-02-25
+
+### Added
+
+- Added `USING_DOCKER.md` guide for running docker container.
+- Added cli args to covalent UI flask server `covalent_ui/app.py` to modify port and log file path.
+
+### Removed
+
+- Removed gunicorn from cli and Dockerfile.
+
+### Changed
+
+- Updated cli `covalent_dispatcher/_cli/service.py` to run flask server directly, and removed dispatcher and UI flags.
+- Using Flask blueprints to merge Dispatcher and UI servers.
+- Updated Dockerfile to run flask server directly.
+- Creating server PID file manually in `covalent_dispatcher/_cli/service.py`.
+- Updated tests and docs to reflect merged servers.
+- Changed all mentions of port 47007 (for old UI server) to 48008.
+
+## [0.27.2] - 2022-02-24
+
+### Changed
+
+- Removed unnecessary blockquotes from the How-To guide for creating custom executors
+- Changed "Covalent Cloud" to "Covalent" in the main code text
+
+## [0.27.1] - 2022-02-24
+
+### Removed
+
+- Removed AQ-Engineers from CODEOWNERS in order to fix PR review notifications
+
+## [0.27.0] - 2022-02-24
+
+### Added
+
+- Support for positional only, positional or keyword, variable positional, keyword only, variable keyword types of parameters is now added, e.g an electron can now use variable args and variable kwargs if the number/names of parameters are unknown during definition as `def task(*args, **kwargs)` which wasn't possible before.
+
+- `Lattice.args` added to store positional arguments passed to the lattice's workflow function.
+
+- `get_named_params` function added in `_shared_files/utils.py` which will return a tuple containing named positional arguments and named keyword arguments. The names help in showing and storing these parameters in the transport graph.
+
+- Tests to verify whether all kinds of input paramaters are supported by electron or a lattice.
+
+### Changed
+
+- No longer merging positional arguments with keyword arguments, instead they are separately stored in respective nodes in the transport graph.
+
+- `inputs` returned from `_get_inputs` function in `covalent_dispatcher/_core/execution.py` now contains positional as well as keyword arguments which further get passed to the executor.
+
+- Executors now support positional and keyword arguments as inputs to their executable functions.
+
+- Result object's `_inputs` attribute now contains both `args` and `kwargs`.
+
+- `add_node_for_nested_iterables` is renamed to `connect_node_with_others` and `add_node_to_graph` also renamed to `add_collection_node_to_graph` in `electron.py`. Some more variable renames to have appropriate self-explanatory names.
+
+- Nodes and edges in the transport graph now have a better interface to assign attributes to them.
+
+- Edge attribute `variable` renamed to `edge_name`.
+
+- In `serialize` function of the transport graph, if `metadata_only` is True, then only `metadata` attribute of node and `source` and `target` attributes of edge are kept in the then return serialized `data`.
+
+- Updated the tests wherever necessary to reflect the above changes
+
+### Removed
+
+- Deprecated `required_params_passed` since an error will automatically be thrown by the `build_graph` function if any of the required parameters are not passed.
+
+- Removed duplicate attributes from nodes in the transport graph.
+
+## [0.26.1] - 2022-02-23
+
+### Added
+
+- Added Local Executor section to the API read the docs.
+
+## [0.26.0] - 2022-02-23
+
+### Added
+
+- Automated reminders to update the changelog
+
+## [0.25.3] - 2022-02-23
+
+## Added
+
+- Listed common mocking commands in the CONTRIBUTING.md guide.
+- Additional guidelines on testing.
+
+## [0.25.2] - 2022-02-21
+
+### Changed
+
+- `backend` metadata name changed to `executor`.
+- `_plan_workflow` usage updated to reflect how that executor related information is now stored in the specific executor object.
+- Updated tests to reflect the above changes.
+- Improved the dispatch cancellation test to provide a robust solution which earlier took 10 minutes to run with uncertainty of failing every now and then.
+
+### Removed
+
+- Removed `TaskExecutionMetadata` as a consequence of removing `execution_args`.
+
+## [0.25.1] - 2022-02-18
+
+### Fixed
+
+- Tracking imports that have been used in the workflow takes less time.
+
+### Added
+
+- User-imports are included in the dispatch_source.py script. Covalent-related imports are commented out.
+
+## [0.25.0] - 2022-02-18
+
+### Added
+
+- UI: Lattice draw() method displays in web UI
+- UI: New navigation panel
+
+### Changed
+
+- UI: Animated graph changes, panel opacity
+
+### Fixed
+
+- UI: Fixed "Not Found" pages
+
+## [0.24.21] - 2022-02-18
+
+### Added
+
+- RST document describing the expectations from a tutorial.
+
+## [0.24.20] - 2022-02-17
+
+### Added
+
+- Added how to create custom executors
+
+### Changed
+
+- Changed the description of the hyperlink for choosing executors
+- Fixed typos in doc/source/api/getting_started/how_to/execution/creating_custom_executors.ipynb
+
+## [0.24.19] - 2022-02-16
+
+### Added
+
+- CODEOWNERS for certain files.
+
+## [0.24.18] - 2022-02-15
+
+### Added
+
+- The user configuration file can now specify an executor plugin directory.
+
+## [0.24.17] - 2022-02-15
+
+### Added
+
+- Added a how-to for making custom executors.
+
+## [0.24.16] - 2022-02-12
+
+### Added
+
+- Errors now contain the traceback as well as the error message in the result object.
+- Added test for `_post_process` in `tests/covalent_dispatcher_tests/_core/execution_test.py`.
+
+### Changed
+
+- Post processing logic in `electron` and dispatcher now relies on the order of execution in the transport graph rather than node's function names to allow for a more reliable pairing of nodes and their outputs.
+
+- Renamed `init_test.py` in `tests/covalent_dispatcher_tests/_core/` to `execution_test.py`.
+
+### Removed
+
+- `exclude_from_postprocess` list which contained some non executable node types removed since only executable nodes are post processed now.
+
+## [0.24.15] - 2022-02-11
+
+### Fixed
+
+- If a user's configuration file does not have a needed exeutor parameter, the default parameter (defined in \_shared_files/defaults.py) is used.
+- Each executor plugin is no longer initialized upon the import of Covalent. This allows required parameters in executor plugins.
+
+## Changed
+
+- Upon updating the configuration data with a user's configuration file, the complete set is written back to file.
+
+## Added
+
+- Tests for the local and base executors.
+
+## [0.24.14] - 2022-02-11
+
+### Added
+
+- UI: add dashboard cards
+- UI: add scaling dots background
+
+### Changed
+
+- UI: reduce sidebar font sizes, refine color theme
+- UI: refine scrollbar styling, show on container hover
+- UI: format executor parameters as YAML code
+- UI: update syntax highlighting scheme
+- UI: update index.html description meta tag
+
+## [0.24.13] - 2022-02-11
+
+### Added
+
+- Tests for covalent/\_shared_files/config.py
+
+## [0.24.12] - 2022-02-10
+
+### Added
+
+- CodeQL code analyzer
+
+## [0.24.11] - 2022-02-10
+
+### Added
+
+- A new dictionary `_DEFAULT_CONSTRAINTS_DEPRECATED` in defaults.py
+
+### Changed
+
+- The `_DEFAULT_CONSTRAINT_VALUES` dictionary now only contains the `backend` argument
+
+## [0.24.10] - 2022-02-09
+
+### Fixed
+
+- Sporadically failing workflow cancellation test in tests/workflow_stack_test.py
+
+## [0.24.9] - 2022-02-09
+
+## Changed
+
+- Implementation of `_port_from_pid` in covalent_dispatcher/\_cli/service.py.
+
+## Added
+
+- Unit tests for command line interface (CLI) functionalities in covalent_dispatcher/\_cli/service.py and covalent_dispatcher/\_cli/cli.py.
+
+## [0.24.8] - 2022-02-07
+
+### Fixed
+
+- If a user's configuration file does not have a needed parameter, the default parameter (defined in \_shared_files/defaults.py) is used.
+
+## [0.24.7] - 2022-02-07
+
+### Added
+
+- Typing: Add Type hint `dispatch_info` parameter.
+- Documentation: Updated the return_type description in docstring.
+
+### Changed
+
+- Typing: Change return type annotation to `Generator`.
+
+## [0.24.6] - 2022-02-06
+
+### Added
+
+- Type hint to `deserialize` method of `TransportableObject` of `covalent/_workflow/transport.py`.
+
+### Changed
+
+- Description of `data` in `deserialize` method of `TransportableObject` of `covalent/_workflow/transport.py` from `The serialized transportable object` to `Cloudpickled function`.
+
+## [0.24.5] - 2022-02-05
+
+### Fixed
+
+- Removed dependence on Sentinel module
+
+## [0.24.4] - 2022-02-04
+
+### Added
+
+- Tests across multiple versions of Python and multiple operating systems
+- Documentation reflecting supported configurations
+
+## [0.24.3] - 2022-02-04
+
+### Changed
+
+- Typing: Use `bool` in place of `Optional[bool]` as type annotation for `develop` parameter in `covalent_dispatcher.service._graceful_start`
+- Typing: Use `Any` in place of `Optional[Any]` as type annotation for `new_value` parameter in `covalent._shared_files.config.get_config`
+
+## [0.24.2] - 2022-02-04
+
+### Fixed
+
+- Updated hyperlink of "How to get the results" from "./collection/query_electron_execution_result" to "./collection/query_multiple_lattice_execution_results" in "doc/source/how_to/index.rst".
+- Updated hyperlink of "How to get the result of a particular electron" from "./collection/query_multiple_lattice_execution_results" to "./collection/query_electron_execution_result" in "doc/source/how_to/index.rst".
+
+## [0.24.1] - 2022-02-04
+
+### Changed
+
+- Changelog entries are now required to have the current date to enforce ordering.
+
+## [0.24.0] - 2022-02-03
+
+### Added
+
+- UI: log file output - display in Output tab of all available log file output
+- UI: show lattice and electron inputs
+- UI: display executor attributes
+- UI: display error message on failed status for lattice and electron
+
+### Changed
+
+- UI: re-order sidebar sections according to latest figma designs
+- UI: update favicon
+- UI: remove dispatch id from tab title
+- UI: fit new uuids
+- UI: adjust theme text primary and secondary colors
+
+### Fixed
+
+- UI: auto-refresh result state on initial render of listing and graph pages
+- UI: graph layout issues: truncate long electron/param names
+
+## [0.23.0] - 2022-02-03
+
+### Added
+
+- Added `BaseDispatcher` class to be used for creating custom dispatchers which allow connection to a dispatcher server.
+- `LocalDispatcher` inheriting from `BaseDispatcher` allows connection to a local dispatcher server running on the user's machine.
+- Covalent only gives interface to the `LocalDispatcher`'s `dispatch` and `dispatch_sync` methods.
+- Tests for both `LocalDispatcher` and `BaseDispatcher` added.
+
+### Changed
+
+- Switched from using `lattice.dispatch` and `lattice.dispatch_sync` to `covalent.dispatch` and `covalent.dispatch_sync`.
+- Dispatcher address now is passed as a parameter (`dispatcher_addr`) to `covalent.dispatch` and `covalent.dispatch_sync` instead of a metadata field to lattice.
+- Updated tests, how tos, and tutorials to use `covalent.dispatch` and `covalent.dispatch_sync`.
+- All the contents of `covalent_dispatcher/_core/__init__.py` are moved to `covalent_dispatcher/_core/execution.py` for better organization. `__init__.py` only contains function imports which are needed by external modules.
+- `dispatch`, `dispatch_sync` methods deprecated from `Lattice`.
+
+### Removed
+
+- `_server_dispatch` method removed from `Lattice`.
+- `dispatcher` metadata field removed from `lattice`.
+
+## [0.22.19] - 2022-02-03
+
+### Fixed
+
+- `_write_dispatch_to_python_file` isn't called each time a task is saved. It is now only called in the final save in `_run_planned_workflow` (in covalent_dispatcher/\_core/**init**.py).
+
+## [0.22.18] - 2022-02-03
+
+### Fixed
+
+- Added type information to result.py
+
+## [0.22.17] - 2022-02-02
+
+### Added
+
+- Replaced `"typing.Optional"` with `"str"` in covalent/executor/base.py
+- Added missing type hints to `get_dispatch_context` and `write_streams_to_file` in covalent/executor/base.py, BaseExecutor
+
+## [0.22.16] - 2022-02-02
+
+### Added
+
+- Functions to check if UI and dispatcher servers are running.
+- Tests for the `is_ui_running` and `is_server_running` in covalent_dispatcher/\_cli/service.py.
+
+## [0.22.15] - 2022-02-01
+
+### Fixed
+
+- Covalent CLI command `covalent purge` will now stop the servers before deleting all the pid files.
+
+### Added
+
+- Test for `purge` method in covalent_dispatcher/\_cli/service.py.
+
+### Removed
+
+- Unused `covalent_dispatcher` import from covalent_dispatcher/\_cli/service.py.
+
+### Changed
+
+- Moved `_config_manager` import from within the `purge` method to the covalent_dispatcher/\_cli/service.py for the purpose of mocking in tests.
+
+## [0.22.14] - 2022-02-01
+
+### Added
+
+- Type hint to `_server_dispatch` method in `covalent/_workflow/lattice.py`.
+
+## [0.22.13] - 2022-01-26
+
+### Fixed
+
+- When the local executor's `log_stdout` and `log_stderr` config variables are relative paths, they should go inside the results directory. Previously that was queried from the config, but now it's queried from the lattice metadata.
+
+### Added
+
+- Tests for the corresponding functions in (`covalent_dispatcher/_core/__init__.py`, `covalent/executor/base.py`, `covalent/executor/executor_plugins/local.py` and `covalent/executor/__init__.py`) affected by the bug fix.
+
+### Changed
+
+- Refactored `_delete_result` in result manager to give the option of deleting the result parent directory.
+
+## [0.22.12] - 2022-01-31
+
+### Added
+
+- Diff check in pypi.yml ensures correct files are packaged
+
+## [0.22.11] - 2022-01-31
+
+### Changed
+
+- Removed codecov token
+- Removed Slack notifications from feature branches
+
+## [0.22.10] - 2022-01-29
+
+### Changed
+
+- Running tests, conda, and version workflows on pull requests, not just pushes
+
+## [0.22.9] - 2022-01-27
+
+### Fixed
+
+- Fixing version check action so that it doesn't run on commits that are in develop
+- Edited PR template so that markdown checklist appears properly
+
+## [0.22.8] - 2022-01-27
+
+### Fixed
+
+- publish workflow, using `docker buildx` to build images for x86 and ARM, prepare manifest and push to ECR so that pulls will match the correct architecture.
+- typo in CONTRIBUTING
+- installing `gcc` in Docker image so Docker can build wheels for `dask` and other packages that don't provide ARM wheels
+
+### Changed
+
+- updated versions in `requirements.txt` for `matplotlib` and `dask`
+
+## [0.22.7] - 2022-01-27
+
+### Added
+
+- `MANIFEST.in` did not have `covalent_dispatcher/_service` in it due to which the PyPi package was not being built correctly. Added the `covalent_dispatcher/_service` to the `MANIFEST.in` file.
+
+### Fixed
+
+- setuptools properly including data files during installation
+
+## [0.22.6] - 2022-01-26
+
+### Fixed
+
+- Added service folder in covalent dispatcher to package.
+
+## [0.22.5] - 2022-01-25
+
+### Fixed
+
+- `README.md` images now use master branch's raw image urls hosted on <https://github.com> instead of <https://raw.githubusercontent.com>. Also, switched image rendering from html to markdown.
+
+## [0.22.4] - 2022-01-25
+
+### Fixed
+
+- dispatcher server app included in sdist
+- raw image urls properly used
+
+## [0.22.3] - 2022-01-25
+
+### Fixed
+
+- raw image urls used in readme
+
+## [0.22.2] - 2022-01-25
+
+### Fixed
+
+- pypi upload
+
+## [0.22.1] - 2022-01-25
+
+### Added
+
+- Code of conduct
+- Manifest.in file
+- Citation info
+- Action to upload to pypi
+
+### Fixed
+
+- Absolute URLs used in README
+- Workflow badges updated URLs
+- `install_package_data` -> `include_package_data` in `setup.py`
+
+## [0.22.0] - 2022-01-25
+
+### Changed
+
+- Using public ECR for Docker release
+
+## [0.21.0] - 2022-01-25
+
+### Added
+
+- GitHub pull request templates
+
+## [0.20.0] - 2022-01-25
+
+### Added
+
+- GitHub issue templates
+
+## [0.19.0] - 2022-01-25
+
+### Changed
+
+- Covalent Beta Release
+
+## [0.18.9] - 2022-01-24
+
+### Fixed
+
+- iframe in the docs landing page is now responsive
+
+## [0.18.8] - 2022-01-24
+
+### Changed
+
+- Temporarily removed output tab
+- Truncated dispatch id to fit left sidebar, add tooltip to show full id
+
+## [0.18.7] - 2022-01-24
+
+### Changed
+
+- Many stylistic improvements to documentation, README, and CONTRIBUTING.
+
+## [0.18.6] - 2022-01-24
+
+### Added
+
+- Test added to check whether an already decorated function works as expected with Covalent.
+- `pennylane` package added to the `requirements-dev.txt` file.
+
+### Changed
+
+- Now using `inspect.signature` instead of `function.__code__` to get the names of function's parameters.
+
+## [0.18.5] - 2022-01-21
+
+### Fixed
+
+- Various CI fixes, including rolling back regression in version validation, caching on s3 hosted badges, applying releases and tags correctly.
+
+## [0.18.4] - 2022-01-21
+
+### Changed
+
+- Removed comments and unused functions in covalent_dispatcher
+- `result_class.py` renamed to `result.py`
+
+### Fixed
+
+- Version was not being properly imported inside `covalent/__init__.py`
+- `dispatch_sync` was not previously using the `results_dir` metadata field
+
+### Removed
+
+- Credentials in config
+- `generate_random_filename_in_cache`
+- `is_any_atom`
+- `to_json`
+- `show_subgraph` option in `draw`
+- `calculate_node`
+
+## [0.18.3] - 2022-01-20
+
+### Fixed
+
+- The gunicorn servers now restart more gracefully
+
+## [0.18.2] - 2022-01-21
+
+### Changed
+
+- `tempdir` metadata field removed and replaced with `executor.local.cache_dir`
+
+## [0.18.1] - 2022-01-11
+
+## Added
+
+- Concepts page
+
+## [0.18.0] - 2022-01-20
+
+### Added
+
+- `Result.CANCELLED` status to represent the status of a cancelled dispatch.
+- Condition to cancel the whole dispatch if any of the nodes are cancelled.
+- `cancel_workflow` function which uses a shared variable provided by Dask (`dask.distributed.Variable`) in a dask client to inform nodes to stop execution.
+- Cancel function for dispatcher server API which will allow the server to terminate the dispatch.
+- How to notebook for cancelling a dispatched job.
+- Test to verify whether cancellation of dispatched jobs is working as expected.
+- `cancel` function is available as `covalent.cancel`.
+
+### Changed
+
+- In file `covalent/_shared_files/config.py` instead of using a variable to store and then return the config data, now directly returning the configuration.
+- Using `fire_and_forget` to dispatch a job instead of a dictionary of Dask's `Future` objects so that we won't have to manage the lifecycle of those futures.
+- The `test_run_dispatcher` test was changed to reflect that the dispatcher no longer uses a dictionary of future objects as it was not being utilized anywhere.
+
+### Removed
+
+- `with dask_client` context was removed as the client created in `covalent_dispatcher/_core/__init__.py` is already being used even without the context. Furthermore, it creates issues when that context is exited which is unnecessary at the first place hence not needed to be resolved.
+
+## [0.17.5] - 2022-01-19
+
+### Changed
+
+- Results directory uses a relative path by default and can be overridden by the environment variable `COVALENT_RESULTS_DIR`.
+
+## [0.17.4] - 2022-01-19
+
+### Changed
+
+- Executor parameters use defaults specified in config TOML
+- If relative paths are supplied for stdout and stderr, those files are created inside the results directory
+
+## [0.17.3] - 2022-01-18
+
+### Added
+
+- Sync function
+- Covalent CLI tool can restart in developer mode
+
+### Fixed
+
+- Updated the UI address referenced in the README
+
+## [0.17.2] - 2022-01-12
+
+### Added
+
+- Quantum gravity tutorial
+
+### Changed
+
+- Moved VERSION file to top level
+
+## [0.17.1] - 2022-01-19
+
+### Added
+
+- `error` attribute was added to the results object to show which node failed and the reason behind it.
+- `stdout` and `stderr` attributes were added to a node's result to store any stdout and stderr printing done inside an electron/node.
+- Test to verify whether `stdout` and `stderr` are being stored in the result object.
+
+### Changed
+
+- Redesign of how `redirect_stdout` and `redirect_stderr` contexts in executor now work to allow storing their respective outputs.
+- Executors now also return `stdout` and `stderr` strings, along with the execution output, so that they can be stored in their result object.
+
+## [0.17.0] - 2022-01-18
+
+### Added
+
+- Added an attribute `__code__` to electron and lattice which is a copy of their respective function's `__code__` attribute.
+- Positional arguments, `args`, are now merged with keyword arguments, `kwargs`, as close as possible to where they are passed. This was done to make sure we support both with minimal changes and without losing the name of variables passed.
+- Tests to ensure usage of positional arguments works as intended.
+
+### Changed
+
+- Slight rework to how any print statements in lattice are sent to null.
+- Changed `test_dispatcher_functional` in `basic_dispatcher_test.py` to account for the support of `args` and removed a an unnecessary `print` statement.
+
+### Removed
+
+- Removed `args` from electron's `init` as it wasn't being used anywhere.
+
+## [0.16.1] - 2022-01-18
+
+### Changed
+
+- Requirement changed from `dask[complete]` to `dask[distributed]`.
+
+## [0.16.0] - 2022-01-14
+
+### Added
+
+- New UI static demo build
+- New UI toolbar functions - orientation, toggle params, minimap
+- Sortable and searchable lattice name row
+
+### Changed
+
+- Numerous UI style tweaks, mostly around dispatches table states
+
+### Fixed
+
+- Node sidebar info now updates correctly
+
+## [0.15.11] - 2022-01-18
+
+### Removed
+
+- Unused numpy requirement. Note that numpy is still being installed indirectly as other packages in the requirements rely on it.
+
+## [0.15.10] - 2022-01-16
+
+## Added
+
+- How-to guide for Covalent dispatcher CLI.
+
+## [0.15.9] - 2022-01-18
+
+### Changed
+
+- Switched from using human readable ids to using UUIDs
+
+### Removed
+
+- `human-id` package was removed along with its mention in `requirements.txt` and `meta.yaml`
+
+## [0.15.8] - 2022-01-17
+
+### Removed
+
+- Code breaking text from CLI api documentation.
+- Unwanted covalent_dispatcher rst file.
+
+### Changed
+
+- Installation of entire covalent_dispatcher instead of covalent_dispatcher/\_service in setup.py.
+
+## [0.15.7] - 2022-01-13
+
+### Fixed
+
+- Functions with multi-line or really long decorators are properly serialized in dispatch_source.py.
+- Multi-line Covalent output is properly commented out in dispatch_source.py.
+
+## [0.15.6] - 2022-01-11
+
+### Fixed
+
+- Sub-lattice functions are successfully serialized in the utils.py get_serialized_function_str.
+
+### Added
+
+- Function to scan utilized source files and return a set of imported modules (utils.get_imports_from_source)
+
+## [0.15.5] - 2022-01-12
+
+### Changed
+
+- UI runs on port 47007 and the dispatcher runs on port 48008. This is so that when the servers are later merged, users continue using port 47007 in the browser.
+- Small modifications to the documentation
+- Small fix to the README
+
+### Removed
+
+- Removed a directory `generated` which was improperly added
+- Dispatcher web interface
+- sqlalchemy requirement
+
+## [0.15.4] - 2022-01-11
+
+### Changed
+
+- In file `covalent/executor/base.py`, `pickle` was changed to `cloudpickle` because of its universal pickling ability.
+
+### Added
+
+- In docstring of `BaseExecutor`, a note was added specifying that `covalent` with its dependencies is assumed to be installed in the conda environments.
+- Above note was also added to the conda env selector how-to.
+
+## [0.15.3] - 2022-01-11
+
+### Changed
+
+- Replaced the generic `RuntimeError` telling users to check if there is an object manipulation taking place inside the lattice to a simple warning. This makes the original error more visible.
+
+## [0.15.2] - 2022-01-11
+
+### Added
+
+- If condition added for handling the case where `__getattr__` of an electron is accessed to detect magic functions.
+
+### Changed
+
+- `ActiveLatticeManager` now subclasses from `threading.local` to make it thread-safe.
+- `ValueError` in the lattice manager's `claim` function now also shows the name of the lattice that is currently claimed.
+- Changed docstring of `ActiveLatticeManager` to note that now it is thread-safe.
+- Sublattice dispatching now no longer deletes the result object file and is dispatched normally instead of in a serverless manner.
+- `simulate_nitrogen_and_copper_slab_interaction.ipynb` notebook tutorial now does normal dispatching as well instead of serverless dispatching. Also, now 7 datapoints will be shown instead of 10 earlier.
+
+## [0.15.1] - 2022-01-11
+
+### Fixed
+
+- Passing AWS credentials to reusable workflows as a secret
+
+## [0.15.0] - 2022-01-10
+
+### Added
+
+- Action to push development image to ECR
+
+### Changed
+
+- Made the publish action reusable and callable
+
+## [0.14.1] - 2022-01-02
+
+### Changed
+
+- Updated the README
+- Updated classifiers in the setup.py file
+- Massaged some RTD pages
+
+## [0.14.0] - 2022-01-07
+
+### Added
+
+- Action to push static UI to S3
+
+## [0.13.2] - 2022-01-07
+
+### Changed
+
+- Completed new UI design work
+
+## [0.13.1] - 2022-01-02
+
+### Added
+
+- Added eventlet requirement
+
+### Changed
+
+- The CLI tool can now manage the UI flask server as well
+- [Breaking] The CLI option `-t` has been changed to `-d`, which starts the servers in developer mode and exposes unit tests to the server.
+
+## [0.13.0] - 2022-01-01
+
+### Added
+
+- Config manager in `covalent/_shared_files/config.py`
+- Default location for the main config file can be overridden using the environment variable `COVALENT_CONFIG_DIR`
+- Ability to set and get configuration using `get_config` and `set_config`
+
+### Changed
+
+- The flask servers now reference the config file
+- Defaults reference the config file
+
+### Fixed
+
+- `ValueError` caught when running `covalent stop`
+- One of the functional tests was using a malformed path
+
+### Deprecated
+
+- The `electron.to_json` function
+- The `generate_random_filename_in_cache` function
+
+### Removed
+
+- The `get_api_token` function
+
+## [0.12.13] - 2022-01-04
+
+## Removed
+
+- Tutorial section headings
+
+## Fixed
+
+- Plot background white color
+
+## [0.12.12] - 2022-01-06
+
+### Fixed
+
+- Having a print statement inside electron and lattice code no longer causes the workflow to fail.
+
+## [0.12.11] - 2022-01-04
+
+### Added
+
+- Completed UI feature set for first release
+
+### Changed
+
+- UI server result serialization improvements
+- UI result update webhook no longer fails on request exceptions, logs warning intead
+
+## [0.12.10] - 2021-12-17
+
+### Added
+
+- Astrophysics tutorial
+
+## [0.12.9] - 2022-01-04
+
+### Added
+
+- Added `get_all_node_results` method in `result_class.py` to return result of all node executions.
+
+- Added `test_parallelilization` test to verify whether the execution is now being achieved in parallel.
+
+### Changed
+
+- Removed `LocalCluster` cluster creation usage to a simple `Client` one from Dask.
+
+- Removed unnecessary `to_run` function as we no longer needed to run execution through an asyncio loop.
+
+- Removed `async` from function definition of previously asynchronous functions, `_run_task`, `_run_planned_workflow`, `_plan_workflow`, and `_run_workflow`.
+
+- Removed `uvloop` from requirements.
+
+- Renamed `test_get_results` to `test_get_result`.
+
+- Reran the how to notebooks where execution time was mentioned.
+
+- Changed how `dispatch_info` context manager was working to account for multiple nodes accessing it at the same time.
+
+## [0.12.8] - 2022-01-02
+
+### Changed
+
+- Changed the software license to GNU Affero 3.0
+
+### Removed
+
+- `covalent-ui` directory
+
+## [0.12.7] - 2021-12-29
+
+### Fixed
+
+- Gunicorn logging now uses the `capture-output` flag instead of redirecting stdout and stderr
+
+## [0.12.6] - 2021-12-23
+
+### Changed
+
+- Cleaned up the requirements and moved developer requirements to a separate file inside `tests`
+
+## [0.12.5] - 2021-12-16
+
+### Added
+
+- Conda build CI job
+
+## [0.12.4] - 2021-12-23
+
+### Changed
+
+- Gunicorn server now checks for port availability before starting
+
+### Fixed
+
+- The `covalent start` function now prints the correct port if the server is already running.
+
+## [0.12.3] - 2021-12-14
+
+### Added
+
+- Covalent tutorial comparing quantum support vector machines with support vector machine algorithms implemented in qiskit and scikit-learn.
+
+## [0.12.2] - 2021-12-16
+
+### Fixed
+
+- Now using `--daemon` in gunicorn to start the server, which was the original intention.
+
+## [0.12.1] - 2021-12-16
+
+### Fixed
+
+- Removed finance references from docs
+- Fixed some other small errors
+
+### Removed
+
+- Removed one of the failing how-to tests from the functional test suite
+
+## [0.12.0] - 2021-12-16
+
+### Added
+
+- Web UI prototype
+
+## [0.11.1] - 2021-12-14
+
+### Added
+
+- CLI command `covalent status` shows port information
+
+### Fixed
+
+- gunicorn management improved
+
+## [0.11.0] - 2021-12-14
+
+### Added
+
+- Slack notifications for test status
+
+## [0.10.4] - 2021-12-15
+
+### Fixed
+
+- Specifying a non-default results directory in a sub-lattice no longer causes a failure in lattice execution.
+
+## [0.10.3] - 2021-12-14
+
+### Added
+
+- Functional tests for how-to's in documentation
+
+### Changed
+
+- Moved example script to a functional test in the pipeline
+- Added a test flag to the CLI tool
+
+## [0.10.2] - 2021-12-14
+
+### Fixed
+
+- Check that only `kwargs` without any default values in the workflow definition need to be passed in `lattice.draw(ax=ax, **kwargs)`.
+
+### Added
+
+- Function to check whether all the parameters without default values for a callable function has been passed added to shared utils.
+
+## [0.10.1] - 2021-12-13
+
+### Fixed
+
+- Content and style fixes for getting started doc.
+
+## [0.10.0] - 2021-12-12
+
+### Changed
+
+- Remove all imports from the `covalent` to the `covalent_dispatcher`, except for `_dispatch_serverless`
+- Moved CLI into `covalent_dispatcher`
+- Moved executors to `covalent` directory
+
+## [0.9.1] - 2021-12-13
+
+### Fixed
+
+- Updated CONTRIBUTING to clarify docstring style.
+- Fixed docstrings for `calculate_node` and `check_constraint_specific_sum`.
+
+## [0.9.0] - 2021-12-10
+
+### Added
+
+- `prefix_separator` for separating non-executable node types from executable ones.
+
+- `subscript_prefix`, `generator_prefix`, `sublattice_prefix`, `attr_prefix` for prefixes of subscripts, generators,
+  sublattices, and attributes, when called on an electron and added to the transport graph.
+
+- `exclude_from_postprocess` list of prefixes to denote those nodes which won't be used in post processing the workflow.
+
+- `__int__()`, `__float__()`, `__complex__()` for converting a node to an integer, float, or complex to a value of 0 then handling those types in post processing.
+
+- `__iter__()` generator added to Electron for supporting multiple return values from an electron execution.
+
+- `__getattr__()` added to Electron for supporting attribute access on the node output.
+
+- `__getitem__()` added to Electron for supporting subscripting on the node output.
+
+- `electron_outputs` added as an attribute to lattice.
+
+### Changed
+
+- `electron_list_prefix`, `electron_dict_prefix`, `parameter_prefix` modified to reflect new way to assign prefixes to nodes.
+
+- In `build_graph` instead of ignoring all exceptions, now the exception is shown alongwith the runtime error notifying that object manipulation should be avoided inside a lattice.
+
+- `node_id` changed to `self.node_id` in Electron's `__call__()`.
+
+- `parameter` type electrons now have the default metadata instead of empty dictionary.
+
+- Instead of deserializing and checking whether a sublattice is there, now a `sublattice_prefix` is used to denote when a node is a sublattice.
+
+- In `dispatcher_stack_test`, `test_dispatcher_flow` updated to indicate the new use of `parameter_prefix`.
+
+### Fixed
+
+- When an execution fails due to something happening in `run_workflow`, then result object's status is now failed and the object is saved alongwith throwing the appropriate exception.
+
+## [0.8.5] - 2021-12-10
+
+### Added
+
+- Added tests for choosing specific executors inside electron initialization.
+- Added test for choosing specific Conda environments inside electron initialization.
+
+## [0.8.4] - 2021-12-10
+
+### Changed
+
+- Removed \_shared_files directory and contents from covalent_dispatcher. Logging in covalent_dispatcher now uses the logger in covalent/\_shared_files/logging.py.
+
+## [0.8.3] - 2021-12-10
+
+### Fixed
+
+- Decorator symbols were added to the pseudo-code in the quantum chemistry tutorial.
+
+## [0.8.2] - 2021-12-06
+
+### Added
+
+- Quantum chemistry tutorial.
+
+## [0.8.1] - 2021-12-08
+
+### Added
+
+- Docstrings with typehints for covalent dispatcher functions added.
+
+### Changed
+
+- Replaced `node` to `node_id` in `electron.py`.
+
+- Removed unnecessary `enumerate` in `covalent_dispatcher/_core/__init__.py`.
+
+- Removed `get_node_device_mapping` function from `covalent_dispatcher/_core/__init__.py`
+  and moved the definition to directly add the mapping to `workflow_schedule`.
+
+- Replaced iterable length comparison for `executor_specific_exec_cmds` from `if len(executor_specific_exec_cmds) > 0`
+  to `if executor_specific_exec_cmds`.
+
+## [0.8.0] - 2021-12-03
+
+### Added
+
+- Executors can now accept the name of a Conda environment. If that environment exists, the operations of any electron using that executor are performed in that Conda environment.
+
+## [0.7.6] - 2021-12-02
+
+### Changed
+
+- How to estimate lattice execution time has been renamed to How to query lattice execution time.
+- Change result querying syntax in how-to guides from `lattice.get_result` to
+  `covalent.get_result`.
+- Choose random port for Dask dashboard address by setting `dashboard_address` to ':0' in
+  `LocalCluster`.
+
+## [0.7.5] - 2021-12-02
+
+### Fixed
+
+- "Default" executor plugins are included as part of the package upon install.
+
+## [0.7.4] - 2021-12-02
+
+### Fixed
+
+- Upgraded dask to 2021.10.0 based on a vulnerability report
+
+## [0.7.3] - 2021-12-02
+
+### Added
+
+- Transportable object tests
+- Transport graph tests
+
+### Changed
+
+- Variable name node_num to node_id
+- Variable name node_idx to node_id
+
+### Fixed
+
+- Transport graph `get_dependencies()` method return type was changed from Dict to List
+
+## [0.7.2] - 2021-12-01
+
+### Fixed
+
+- Date handling in changelog validation
+
+### Removed
+
+- GitLab CI YAML
+
+## [0.7.1] - 2021-12-02
+
+### Added
+
+- A new parameter to a node's result called `sublattice_result` is added.
+  This will be of a `Result` type and will contain the result of that sublattice's
+  execution. If a normal electron is executed, this will be `None`.
+
+- In `_delete_result` function in `results_manager.py`, an empty results directory
+  will now be deleted.
+
+- Name of a sublattice node will also contain `(sublattice)`.
+
+- Added `_dispatch_sync_serverless` which synchronously dispatches without a server
+  and waits for a result to be returned. This is the method used to dispatch a sublattice.
+
+- Test for sublatticing is added.
+
+- How-to guide added for sublatticing explaining the new features.
+
+### Changed
+
+- Partially changed `draw` function in `lattice.py` to also draw the subgraph
+  of the sublattice when drawing the main graph of the lattice. The change is
+  incomplete as we intend to add this feature later.
+
+- Instead of returning `plt`, `draw` now returns the `ax` object.
+
+- `__call__` function in `lattice.py` now runs the lattice's function normally
+  instead of dispatching it.
+
+- `_run_task` function now checks whether current node is a sublattice and acts
+  accordingly.
+
+### Fixed
+
+- Unnecessary lines to rename the node's name in `covalent_dispatcher/_core/__init__.py` are removed.
+
+- `test_electron_takes_nested_iterables` test was being ignored due to a spelling mistake. Fixed and
+  modified to follow the new pattern.
+
+## [0.7.0] - 2021-12-01
+
+### Added
+
+- Electrons can now accept an executor object using the "backend" keyword argument. "backend" can still take a string naming the executor module.
+- Electrons and lattices no longer have Slurm metadata associated with the executor, as that information should be contained in the executor object being used as an input argument.
+- The "backend" keyword can still be a string specifying the executor module, but only if the executor doesn't need any metadata.
+- Executor plugin classes are now directly available to covalent, eg: covalent.executor.LocalExecutor().
+
+## [0.6.7] - 2021-12-01
+
+### Added
+
+- Docstrings without examples for all the functions in core covalent.
+- Typehints in those functions as well.
+- Used `typing.TYPE_CHECKING` to prevent cyclic imports when writing typehints.
+
+### Changed
+
+- `convert_to_lattice_function` renamed to `convert_to_lattice_function_call`.
+- Context managers now raise a `ValueError` instead of a generic `Exception`.
+
+## [0.6.6] - 2021-11-30
+
+### Fixed
+
+- Fixed the version used in the documentation
+- Fixed the badge URLs to prevent caching
+
+## [0.6.5] - 2021-11-30
+
+### Fixed
+
+- Broken how-to links
+
+### Removed
+
+- Redundant lines from .gitignore
+- \*.ipynb from .gitignore
+
+## [0.6.4] - 2021-11-30
+
+### Added
+
+- How-to guides for workflow orchestration.
+  - How to construct an electron
+  - How to construct a lattice
+  - How to add an electron to lattice
+  - How to visualize the lattice
+  - How to add constraints to lattices
+- How-to guides for workflow and subtask execution.
+  - How to execute individual electrons
+  - How to execute a lattice
+  - How to execute multiple lattices
+- How-to guides for status querying.
+  - How to query electron execution status
+  - How to query lattice execution status
+  - How to query lattice execution time
+- How-to guides for results collection
+  - How to query electron execution results
+  - How to query lattice execution results
+  - How to query multiple lattice execution results
+- Str method for the results object.
+
+### Fixed
+
+- Saving the electron execution status when the subtask is running.
+
+## [0.6.3] - 2021-11-29
+
+### Removed
+
+- JWT token requirement.
+- Covalent dispatcher login requirement.
+- Update covalent login reference in README.md.
+- Changed the default dispatcher server port from 5000 to 47007.
+
+## [0.6.2] - 2021-11-28
+
+### Added
+
+- Github action for tests and coverage
+- Badges for tests and coverage
+- If tests pass then develop is pushed to master
+- Add release action which tags and creates a release for minor version upgrades
+- Add badges action which runs linter, and upload badges for version, linter score, and platform
+- Add publish action (and badge) which builds a Docker image and uploads it to the AWS ECR
+
+## [0.6.1] - 2021-11-27
+
+### Added
+
+- Github action which checks version increment and changelog entry
+
+## [0.6.0] - 2021-11-26
+
+### Added
+
+- New Covalent RTD theme
+- sphinx extension sphinx-click for CLI RTD
+- Sections in RTD
+- init.py in both covalent-dispatcher logger module and cli module for it to be importable in sphinx
+
+### Changed
+
+- docutils version that was conflicting with sphinx
+
+### Removed
+
+- Old aq-theme
+
+## [0.5.1] - 2021-11-25
+
+### Added
+
+- Integration tests combining both covalent and covalent-dispatcher modules to test that
+  lattice workflow are properly planned and executed.
+- Integration tests for the covalent-dispatcher init module.
+- pytest-asyncio added to requirements.
+
+## [0.5.0] - 2021-11-23
+
+### Added
+
+- Results manager file to get results from a file, delete a result, and redispatch a result object.
+- Results can also be awaited to only return a result if it has either been completed or failed.
+- Results class which is used to store the results with all the information needed to be used again along with saving the results to a file functionality.
+- A result object will be a mercurial object which will be updated by the dispatcher and saved to a file throughout the dispatching and execution parts.
+- Direct manipulation of the transport graph inside a result object takes place.
+- Utility to convert a function definition string to a function and vice-versa.
+- Status class to denote the status of a result object and of each node execution in the transport graph.
+- Start and end times are now also stored for each node execution as well as for the whole dispatch.
+- Logging of `stdout` and `stderr` can be done by passing in the `log_stdout`, `log_stderr` named metadata respectively while dispatching.
+- In order to get the result of a certain dispatch, the `dispatch_id`, the `results_dir`, and the `wait` parameter can be passed in. If everything is default, then only the dispatch id is required, waiting will not be done, and the result directory will be in the current working directory with folder name as `results/` inside which every new dispatch will have a new folder named according to their respective dispatch ids, containing:
+  - `result.pkl` - (Cloud)pickled result object.
+  - `result_info.yaml` - yaml file with high level information about the result and its execution.
+  - `dispatch_source.py` - python file generated, containing the original function definitions of lattice and electrons which can be used to dispatch again.
+
+### Changed
+
+- `logfile` named metadata is now `slurm_logfile`.
+- Instead of using `jsonpickle`, `cloudpickle` is being used everywhere to maintain consistency.
+- `to_json` function uses `json` instead of `jsonpickle` now in electron and lattice definitions.
+- `post_processing` moved to the dispatcher, so the dispatcher will now store a finished execution result in the results folder as specified by the user with no requirement of post processing it from the client/user side.
+- `run_task` function in dispatcher modified to check if a node has completed execution and return it if it has, else continue its execution. This also takes care of cases if the server has been closed mid execution, then it can be started again from the last saved state, and the user won't have to wait for the whole execution.
+- Instead of passing in the transport graph and dispatch id everywhere, the result object is being passed around, except for the `asyncio` part where the dispatch id and results directory is being passed which afterwards lets the core dispatcher know where to get the result object from and operate on it.
+- Getting result of parent node executions of the graph, is now being done using the result object's graph. Storing of each execution's result is also done there.
+- Tests updated to reflect the changes made. They are also being run in a serverless manner.
+
+### Removed
+
+- `LatticeResult` class removed.
+- `jsonpickle` requirement removed.
+- `WorkflowExecutionResult`, `TaskExecutionResult`, and `ExecutionError` singleton classes removed.
+
+### Fixed
+
+- Commented out the `jwt_required()` part in `covalent-dispatcher/_service/app.py`, may be removed in later iterations.
+- Dispatcher server will now return the error message in the response of getting result if it fails instead of sending every result ever as a response.
+
+## [0.4.3] - 2021-11-23
+
+### Added
+
+- Added a note in Known Issues regarding port conflict warning.
+
+## [0.4.2] - 2021-11-24
+
+### Added
+
+- Added badges to README.md
+
+## [0.4.1] - 2021-11-23
+
+### Changed
+
+- Removed old coverage badge and fixed the badge URL
+
+## [0.4.0] - 2021-11-23
+
+### Added
+
+- Codecov integrations and badge
+
+### Fixed
+
+- Detached pipelines no longer created
+
+## [0.3.0] - 2021-11-23
+
+### Added
+
+- Wrote a Code of Conduct based on <https://www.contributor-covenant.org/>
+- Added installation and environment setup details in CONTRIBUTING
+- Added Known Issues section to README
+
+## [0.2.0] - 2021-11-22
+
+### Changed
+
+- Removed non-open-source executors from Covalent. The local SLURM executor is now
+- a separate repo. Executors are now plugins.
+
+## [0.1.0] - 2021-11-19
+
+### Added
+
+- Pythonic CLI tool. Install the package and run `covalent --help` for a usage description.
+- Login and logout functionality.
+- Executor registration/deregistration skeleton code.
+- Dispatcher service start, stop, status, and restart.
+
+### Changed
+
+- JWT token is stored to file instead of in an environment variable.
+- The Dask client attempts to connect to an existing server.
+
+### Removed
+
+- Removed the Bash CLI tool.
+
+### Fixed
+
+- Version assignment in the covalent init file.
+
+## [0.0.3] - 2021-11-17
+
+### Fixed
+
+- Fixed the Dockerfile so that it runs the dispatcher server from the covalent repo.
+
+## [0.0.2] - 2021-11-15
+
+### Changed
+
+- Single line change in ci script so that it doesn't exit after validating the version.
+- Using `rules` in `pytest` so that the behavior in test stage is consistent.
+
+## [0.0.1] - 2021-11-15
+
+### Added
+
+- CHANGELOG.md to track changes (this file).
+- Semantic versioning in VERSION.
+- CI pipeline job to enforce versioning.

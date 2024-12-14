@@ -1,0 +1,77 @@
+{
+  "name": "webapp",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@emotion/react": "^11.7.0",
+    "@emotion/styled": "^11.6.0",
+    "@mui/icons-material": "^5.2.0",
+    "@mui/lab": "^5.0.0-alpha.62",
+    "@mui/material": "^5.2.2",
+    "@reduxjs/toolkit": "^1.6.2",
+    "@testing-library/jest-dom": "^5.11.4",
+    "@testing-library/react": "^11.1.0",
+    "@testing-library/react-hooks": "^8.0.1",
+    "@testing-library/user-event": "^12.1.10",
+    "axios": "^1.6.0",
+    "clsx": "^1.1.1",
+    "copy-to-clipboard": "^3.3.1",
+    "dagre": "^0.8.5",
+    "date-fns": "^2.27.0",
+    "elkjs": "^0.7.1",
+    "fuse.js": "^6.4.6",
+    "html2canvas": "^1.4.1",
+    "humanize-duration": "^3.27.1",
+    "lodash": "^4.17.21",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-flow-renderer": "^9.7.4",
+    "react-helmet-async": "^1.2.1",
+    "react-redux": "^7.2.6",
+    "react-router-dom": "^6.0.2",
+    "react-scripts": "4.0.3",
+    "react-syntax-highlighter": "^15.4.5",
+    "react-virtualized": "^9.22.5",
+    "react-tooltip": "^4.2.21",
+    "redux-localstorage": "^0.4.1",
+    "socket.io-client": "^4.4.0",
+    "use-debounce": "^8.0.1",
+    "use-react-screenshot": "3.0.0",
+    "xterm-addon-fit": "^0.5.0",
+    "xterm-for-react": "^1.0.4"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "build-demo": "REACT_APP_DEMO=true BUILD_PATH=build-demo react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "testcov": "CI=true react-scripts test --coverage --collectCoverageFrom=src/**/*js"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "jest": {
+    "transformIgnorePatterns": [
+      "/node_modules/(?!d3|axios|d3-array|internmap|delaunator|xterm-for-react|xterm-addon-fit|xterm-addon-web-links|xterm-addon-search|robust-predicates)"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "redux-mock-store": "^1.5.4"
+  }
+}
