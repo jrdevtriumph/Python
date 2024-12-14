@@ -1,3 +1,0 @@
-covalent
-matplotlib==3.4.3
-pytz==2022.1
